@@ -5,61 +5,73 @@ export const fileManifest: AudioManifestItem[] = [
     id: 0,
     filename: "audio/awww.mp3",
     title: "Aww",
+    code: "∂∆∞◊",
   },
   {
     id: 1,
     filename: "audio/disappointed_shock.mp3",
     title: "Shock",
+    code: "∆∞◊∂",
   },
   {
     id: 2,
     filename: "audio/gasp.mp3",
     title: "Gasp",
+    code: "∞∂◊∆",
   },
   {
     id: 3,
     filename: "audio/good_joke.mp3",
     title: "Chuckles",
+    code: "◊∞∆∂",
   },
   {
     id: 4,
     filename: "audio/laugh_but_you_shouldnt.mp3",
     title: "Guilty Laugh",
+    code: "∞◊∂∆",
   },
   {
     id: 5,
     filename: "audio/ooaah.mp3",
     title: "Groan",
+    code: "∆◊∂∞",
   },
   {
     id: 6,
     filename: "audio/solid_laugh.mp3",
     title: "Solid Laugh",
+    code: "∂◊∞∆",
   },
   {
     id: 7,
     filename: "audio/applause.mp3",
     title: "Applause",
+    code: "∆∂∞◊",
   },
   {
     id: 8,
     filename: "audio/cheering.mp3",
     title: "Cheering",
+    code: "∞∆◊∂",
   },
   {
     id: 9,
     filename: "audio/polite_applause.mp3",
     title: "Golf Clap",
+    code: "◊∂∞∆",
   },
   {
     id: 10,
     filename: "audio/baby_laugh.mp3",
     title: "Laughing Baby",
+    code: "∂∞∆◊",
   },
   {
     id: 11,
     filename: "audio/clearing_throat.mp3",
     title: "Man Clearing Throat",
+    code: "∆◊∞∂",
   },
 ];
 

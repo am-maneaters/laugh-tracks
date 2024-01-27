@@ -2,6 +2,7 @@ export interface AudioManifestItem {
   id: number;
   filename: string;
   title: string;
+  code: string;
 }
 
 export interface ScoreReference {

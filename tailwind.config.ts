@@ -7,6 +7,7 @@ export default {
       boxShadow: {
         // hard shadow
         hard: "3px 6px",
+        "hard-xl": "6px 12px",
       },
       // make it so when a button is clicked, it fills in the hard shadow space
 
