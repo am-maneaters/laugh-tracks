@@ -25,8 +25,8 @@ export const fileManifest: AudioManifestItem[] = [
   },
   {
     id: 3,
-    filename: getAudioUrl("audio/good_joke.mp3"),
-    title: "Chuckles",
+    filename: getAudioUrl("audio/quick_laugh.mp3"),
+    title: "Short Chuckle",
     code: "◊∞∆∂",
   },
   {
@@ -44,7 +44,7 @@ export const fileManifest: AudioManifestItem[] = [
   {
     id: 6,
     filename: getAudioUrl("audio/solid_laugh.mp3"),
-    title: "Solid Laugh",
+    title: "Big Laugh",
     code: "∂◊∞∆",
   },
   {
