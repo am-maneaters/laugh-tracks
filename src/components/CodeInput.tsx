@@ -98,19 +98,25 @@ export function CodeInput() {
 
   return (
     <div className="flex flex-col items-center">
-      <div>
-        <input
-          className={clsx(
-            "border border-black rounded p-2 text-6xl",
-            animateOut === "fail" && "animate-blinking-red",
-            animateOut === "success" && "animate-blinking-green"
-          )}
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          readOnly
-        />
+      <div className="flex gap-4 p-4 font-bold border-2 rounded-lg">
+        {code
+          .slice(0, 4)
+          .padEnd(4)
+          .split("")
+          .map((char, i) => (
+            <input
+              key={i}
+              className={clsx(
+                " border-b-white border-b-4 text-center p-2 text-6xl w-20 bg-transparent",
+                animateOut === "fail" && "animate-blinking-red",
+                animateOut === "success" && "animate-blinking-green"
+              )}
+              value={char}
+              readOnly
+            />
+          ))}
       </div>
-      <div className="grid gap-4 grid-cols-2 p-4">
+      <div className="grid gap-4 grid-cols-4 p-4">
         <CodeInputButton label="◊" color="red" onClick={handleCodeInput} />
         <CodeInputButton label="∆" color="blue" onClick={handleCodeInput} />
         <CodeInputButton label="∞" color="yellow" onClick={handleCodeInput} />
@@ -118,13 +124,12 @@ export function CodeInput() {
       </div>
 
       {/* Display the codes for the player */}
-      <div className="grid gap-4 grid-cols-2 p-4">
-        {CodeMatches.map((codeMatch) => (
-          <div className="flex flex-col items-center">
-            <div className="border border-black rounded p-2 text-6xl">
-              {codeMatch.code}
+      <div className="grid gap-4 grid-cols-3 p-4">
+        {CodeMatches.map(({ code, name }) => (
+          <div className="flex flex-col items-center h-full" key={code}>
+            <div className="border border-black rounded p-2 text-xl font-bold">
+              {name}: {code}
             </div>
-            <div className="text-2xl">{codeMatch.name}</div>
           </div>
         ))}
       </div>
