@@ -20,17 +20,15 @@ export function VideoPlayer() {
     player.on("stateChange", (e) => console.log(e));
 
     // get the current duration every 0.1 seconds
-    const interval = setInterval(async () => {
-      console.log("interval");
-      console.time("interval");
-      const duration = await player.getCurrentTime();
-      console.timeEnd("interval");
-      console.log(duration);
-    }, 1000);
+    // const interval = setInterval(async () => {
+      
+    //   const currentTime = await player.getCurrentTime();
+     
+    // }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
   return <div ref={videoRef} className=" w-96" />;
 }
