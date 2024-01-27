@@ -51,7 +51,7 @@ export function VideoPlayer() {
 
   return (
     <div className="flex flex-col gap-4 items-center">
-      <div ref={videoRef} className="w-96 h-auto aspect-video rounded-xl" />
+      <div ref={videoRef} className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none" />
 
       {/* pause/play button */}
       <button

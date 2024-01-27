@@ -1,5 +1,8 @@
 import clsx from "clsx";
 import { useState } from "react";
+import AudioManager from "../audioManager";
+import { fileManifest } from "../constants";
+import { AudioManifestItem } from "../types";
 
 function CodeInputButton({
   label,
@@ -12,7 +15,7 @@ function CodeInputButton({
 }) {
   return (
     <button
-      className="w-24 h-24 text-6xl rounded border-black border cursor-pointer font-bold p-4 hover:border-blue-400 shadow-hard active:translate-x-fill-shadow-x active:shadow-none active:translate-y-fill-shadow-y"
+      className="w-auto aspect-square place-self-center h-20 text-4xl rounded-full border-black border cursor-pointer font-bold p-4 hover:border-blue-400 shadow-hard active:translate-x-fill-shadow-x active:shadow-none active:translate-y-fill-shadow-y"
       onClick={() => onClick(label)}
       style={{ backgroundColor: color, color: "black" }}
     >
@@ -21,61 +24,14 @@ function CodeInputButton({
   );
 }
 
-const CodeMatches = [
-  {
-    code: "∆∆∆∆",
-    name: "Laugh",
-    soundEffect: "",
-  },
-  {
-    code: "∆∆◊◊",
-    name: "Aww",
-    soundEffect: "",
-  },
-  {
-    code: "∆◊∆◊",
-    name: "Applause",
-    soundEffect: "",
-  },
-  {
-    code: "∆◊◊∆",
-    name: "Boo",
-    soundEffect: "",
-  },
-  {
-    code: "◊∆∆∆",
-    name: "Gasp",
-    soundEffect: "",
-  },
-  {
-    code: "◊∆◊∆",
-    name: "Giggle",
-    soundEffect: "",
-  },
-  {
-    code: "◊◊∆∆",
-    name: "Guffaw",
-    soundEffect: "",
-  },
-  {
-    code: "◊◊◊◊",
-    name: "Sigh",
-    soundEffect: "",
-  },
-  {
-    code: "∞∞∞∞",
-    name: "Scream",
-    soundEffect: "",
-  },
-];
-
 function validateCode(code: string) {
-  return CodeMatches.find((codeMatch) => codeMatch.code === code);
+  return fileManifest.find((codeMatch) => codeMatch.code === code);
 }
 
 export function CodeInput() {
   const [code, setCode] = useState<string>("");
   const [animateOut, setAnimateOut] = useState<"fail" | "success">();
+  const [inputHistory, setInputHistory] = useState<AudioManifestItem[]>([]);
 
   const handleCodeInput = (label: string) => {
     const newCode = code + label;
@@ -85,7 +41,8 @@ export function CodeInput() {
     if (newCode.length === 4) {
       const codeMatch = validateCode(newCode);
       if (codeMatch) {
-        console.log(codeMatch.name);
+        AudioManager.playSound(codeMatch.id);
+        setInputHistory((prev) => [...prev, codeMatch]);
       }
       setAnimateOut(codeMatch ? "success" : "fail");
       setTimeout(() => {
@@ -98,37 +55,39 @@ export function CodeInput() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex gap-4 p-4 font-bold border-2 rounded-lg">
-        {code
-          .slice(0, 4)
-          .padEnd(4)
-          .split("")
-          .map((char, i) => (
-            <input
-              key={i}
-              className={clsx(
-                " border-b-white border-b-4 text-center p-2 text-6xl w-20 bg-transparent",
-                animateOut === "fail" && "animate-blinking-red",
-                animateOut === "success" && "animate-blinking-green"
-              )}
-              value={char}
-              readOnly
-            />
-          ))}
-      </div>
-      <div className="grid gap-4 grid-cols-4 p-4">
-        <CodeInputButton label="◊" color="red" onClick={handleCodeInput} />
-        <CodeInputButton label="∆" color="blue" onClick={handleCodeInput} />
-        <CodeInputButton label="∞" color="yellow" onClick={handleCodeInput} />
-        <CodeInputButton label="∂" color="green" onClick={handleCodeInput} />
+      <div className="border-4 border-black rounded-lg bg-green-200 shadow-hard-xl shadow-black">
+        <div className="flex gap-4 p-4 font-bold rounded-lg">
+          {code
+            .slice(0, 4)
+            .padEnd(4)
+            .split("")
+            .map((char, i) => (
+              <input
+                key={i}
+                className={clsx(
+                  " border-b-black border-b-4 text-center p-2 text-4xl w-10 bg-transparent rounded-sm text-black",
+                  animateOut === "fail" && "animate-blinking-red",
+                  animateOut === "success" && "animate-blinking-green"
+                )}
+                value={char}
+                readOnly
+              />
+            ))}
+        </div>
+        <div className="grid gap-4 grid-cols-2 p-4">
+          <CodeInputButton label="◊" color="red" onClick={handleCodeInput} />
+          <CodeInputButton label="∆" color="blue" onClick={handleCodeInput} />
+          <CodeInputButton label="∞" color="yellow" onClick={handleCodeInput} />
+          <CodeInputButton label="∂" color="green" onClick={handleCodeInput} />
+        </div>
       </div>
 
       {/* Display the codes for the player */}
       <div className="grid gap-4 grid-cols-3 p-4">
-        {CodeMatches.map(({ code, name }) => (
+        {fileManifest.map(({ code, title }) => (
           <div className="flex flex-col items-center h-full" key={code}>
-            <div className="border border-black rounded p-2 text-xl font-bold">
-              {name}: {code}
+            <div className="border border-black rounded p-2 text-sm font-bold">
+              {title}: {code}
             </div>
           </div>
         ))}
