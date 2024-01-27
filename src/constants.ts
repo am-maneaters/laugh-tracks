@@ -1,64 +1,68 @@
 import { AudioManifestItem, ScoreReference } from "./types";
 
+function getAudioUrl(filename: string) {
+    return new URL(`./assets/${filename}`, import.meta.url).href;
+}
+  
 export const fileManifest: AudioManifestItem[] = [
   {
     id: 0,
-    filename: "audio/awww.mp3",
+    filename: getAudioUrl("audio/awww.mp3"),
     title: "Aww",
   },
   {
     id: 1,
-    filename: "audio/disappointed_shock.mp3",
+    filename: getAudioUrl("audio/disappointed_shock.mp3"),
     title: "Shock",
   },
   {
     id: 2,
-    filename: "audio/gasp.mp3",
+    filename: getAudioUrl("audio/gasp.mp3"),
     title: "Gasp",
   },
   {
     id: 3,
-    filename: "audio/good_joke.mp3",
+    filename: getAudioUrl("audio/good_joke.mp3"),
     title: "Chuckles",
   },
   {
     id: 4,
-    filename: "audio/laugh_but_you_shouldnt.mp3",
+    filename: getAudioUrl("audio/laugh_but_you_shouldnt.mp3"),
     title: "Guilty Laugh",
   },
   {
     id: 5,
-    filename: "audio/ooaah.mp3",
+    filename: getAudioUrl("audio/ooaah.mp3"),
     title: "Groan",
   },
   {
     id: 6,
-    filename: "audio/solid_laugh.mp3",
+    filename: getAudioUrl("audio/solid_laugh.mp3"),
     title: "Solid Laugh",
   },
   {
     id: 7,
-    filename: "audio/applause.mp3",
+    filename: getAudioUrl("audio/applause.mp3"),
     title: "Applause",
   },
   {
     id: 8,
-    filename: "audio/cheering.mp3",
+    filename: getAudioUrl("audio/cheering.mp3"),
     title: "Cheering",
   },
   {
     id: 9,
-    filename: "audio/polite_applause.mp3",
+    filename: getAudioUrl("audio/polite_applause.mp3"),
     title: "Golf Clap",
   },
   {
     id: 10,
-    filename: "audio/baby_laugh.mp3",
+    filename: getAudioUrl("audio/baby_laugh.mp3"),
     title: "Laughing Baby",
   },
   {
     id: 11,
-    filename: "audio/clearing_throat.mp3",
+    filename: getAudioUrl("audio/clearing_throat.mp3"),
     title: "Man Clearing Throat",
   },
 ];
@@ -115,3 +119,4 @@ export const scoreReference_TEST: ScoreReference = {
     },
   ],
 };
+

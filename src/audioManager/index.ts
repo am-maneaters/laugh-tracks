@@ -14,17 +14,15 @@ class AudioManager {
   }
 
   preloadAudio = (): Promise<any> => {
-    console.log("preloading audio files");
     return Promise.all(
       fileManifest.map((sound) => {
         const player = new Tone.Player().connect(this.gain);
         player.loop = false;
-
         this.sounds.push({
           id: sound.id,
           player,
         });
-        return player.load(`./assets/${sound.filename}`);
+        return player.load(sound.filename);
       })
     );
   };
