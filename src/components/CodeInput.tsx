@@ -67,56 +67,6 @@ const CodeMatches = [
     name: "Scream",
     soundEffect: "",
   },
-  {
-    code: "∞∞∞◊",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "∞∞◊∞",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "∞◊∞∞",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "∞∞◊◊",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "∞◊∞◊",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "∞◊◊∞",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "∞◊◊◊",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "◊∞∞∞",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "◊∞∞◊",
-    name: "Scream",
-    soundEffect: "",
-  },
-  {
-    code: "◊∞◊∞",
-    name: "Scream",
-    soundEffect: "",
-  },
 ];
 
 function validateCode(code: string) {
