@@ -1,4 +1,6 @@
-export const fileManifest = [
+import { AudioManifestItem, ScoreReference } from "./types";
+
+export const fileManifest: AudioManifestItem[] = [
   {
     id: 0,
     filename: "audio/awww.mp3",
@@ -61,29 +63,31 @@ export const fileManifest = [
   },
 ];
 
-export const scoreReference_TEST = [
-  {
-    elapsed: 3000,
-    soundPlayedId: 0,
-  },
-  {
-    elapsed: 5000,
-    soundPlayedId: 1,
-  },
-  {
-    elapsed: 10000,
-    soundPlayedId: 2,
-  },
-  {
-    elapsed: 13000,
-    soundPlayedId: 3,
-  },
-  {
-    elapsed: 14000,
-    soundPlayedId: 4,
-  },
-  {
-    elapsed: 18000,
-    soundPlayedId: 5,
-  },
-];
+export const scoreReference_TEST: ScoreReference = {
+  soundsTriggered: [
+    {
+      elapsed: 3000,
+      soundPlayedId: 0,
+    },
+    {
+      elapsed: 5000,
+      soundPlayedId: 1,
+    },
+    {
+      elapsed: 10000,
+      soundPlayedId: 2,
+    },
+    {
+      elapsed: 13000,
+      soundPlayedId: 3,
+    },
+    {
+      elapsed: 14000,
+      soundPlayedId: 4,
+    },
+    {
+      elapsed: 18000,
+      soundPlayedId: 5,
+    },
+  ],
+};
