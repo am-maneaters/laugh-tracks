@@ -66,28 +66,52 @@ export const fileManifest: AudioManifestItem[] = [
 export const scoreReference_TEST: ScoreReference = {
   soundsTriggered: [
     {
-      elapsed: 3000,
       soundPlayedId: 0,
+      elapsedMs: 3000,
+      windowMs: 750,
+      points: 100,
     },
     {
-      elapsed: 5000,
       soundPlayedId: 1,
+      elapsedMs: 5000,
+      windowMs: 750,
+      points: 200,
     },
     {
-      elapsed: 10000,
       soundPlayedId: 2,
+      elapsedMs: 10000,
+      windowMs: 750,
+      points: 300,
     },
     {
-      elapsed: 13000,
+      soundPlayedId: 11,
+      elapsedMs: 11000,
+      windowMs: 5000,
+      points: -500,
+    },
+    {
       soundPlayedId: 3,
+      elapsedMs: 13000,
+      windowMs: 750,
+      points: 1000,
     },
     {
-      elapsed: 14000,
       soundPlayedId: 4,
+      elapsedMs: 14000,
+      windowMs: 750,
+      points: 150,
     },
     {
-      elapsed: 18000,
       soundPlayedId: 5,
+      elapsedMs: 18000,
+      windowMs: 750,
+      points: 50,
+    },
+    {
+      soundPlayedId: 10,
+      elapsedMs: 11000,
+      windowMs: 5000,
+      points: -700,
     },
   ],
 };
