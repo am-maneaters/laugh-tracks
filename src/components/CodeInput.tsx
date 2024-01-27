@@ -15,7 +15,7 @@ function CodeInputButton({
 }) {
   return (
     <button
-      className="w-auto h-20 text-4xl rounded border-black border cursor-pointer font-bold p-4 hover:border-blue-400 shadow-hard active:translate-x-fill-shadow-x active:shadow-none active:translate-y-fill-shadow-y"
+      className="w-auto aspect-square place-self-center h-20 text-4xl rounded-full border-black border cursor-pointer font-bold p-4 hover:border-blue-400 shadow-hard active:translate-x-fill-shadow-x active:shadow-none active:translate-y-fill-shadow-y"
       onClick={() => onClick(label)}
       style={{ backgroundColor: color, color: "black" }}
     >
@@ -55,7 +55,7 @@ export function CodeInput() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className=" border-4 border-black rounded-lg bg-green-200 shadow-hard-xl shadow-black">
+      <div className="border-4 border-black rounded-lg bg-green-200 shadow-hard-xl shadow-black">
         <div className="flex gap-4 p-4 font-bold rounded-lg">
           {code
             .slice(0, 4)
