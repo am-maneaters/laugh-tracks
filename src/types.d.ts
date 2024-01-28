@@ -1,11 +1,12 @@
 
-export type GameMode = "menu" | "tutorial" | "stills" | "playback";
+export type GameMode = "menu" | "tutorial" | "stills" | "prep_playback" | "playback";
 
 export interface AudioManifestItem {
   id: number;
   filename: string;
   title: string;
   code: string;
+  gain: number;
 }
 
 export interface ScoreReference {

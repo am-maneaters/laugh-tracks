@@ -13,10 +13,11 @@ class AudioManager {
     this.gain = new Tone.Gain(1).toDestination();
   }
 
-  preloadAudio = (): Promise<any> => {
+  preloadAudio = (): Promise<Tone.Player[]> => {
     return Promise.all(
       fileManifest.map((sound) => {
-        const player = new Tone.Player().connect(this.gain);
+        const customGain = new Tone.Gain(sound.gain);
+        const player = new Tone.Player().chain(customGain, this.gain);
         player.loop = false;
         this.sounds.push({
           id: sound.id,

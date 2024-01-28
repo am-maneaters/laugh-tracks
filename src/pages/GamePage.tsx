@@ -16,7 +16,9 @@ export function GamePage() {
 
   const goToNextScene = useCallback(() => {
     setGameMode((prev) => {
+      if (prev === "menu") return "stills";
       if (prev === "stills") return "playback";
+      if (prev === "playback") return "menu";
       return prev;
     });
   }, []);
@@ -49,7 +51,7 @@ export function GamePage() {
         mode={gameMode}
         goToNextScene={goToNextScene}
         onTimeRanOut={finalizeChoice}
-        // chosenSoundIds={chosenSoundIds}
+        chosenSoundIds={chosenSoundIds}
       />
       <CodeInput onSoundChosen={setChosenSound} videoPlayer={player} />
     </div>
