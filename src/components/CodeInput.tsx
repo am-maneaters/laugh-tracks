@@ -5,25 +5,19 @@ import { fileManifest } from "../constants";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 import { AudioManifestItem } from "../types";
 
-function CodeInputButton({
-  label,
-  onClick,
-  color,
-}: {
-  label: string;
-  onClick: (label: string) => void;
-  color?: string;
-}) {
-  return (
-    <button
-      className="w-auto aspect-square place-self-center h-20 text-4xl rounded-full border-black border cursor-pointer font-bold p-4 hover:border-blue-400 shadow-hard active:translate-x-fill-shadow-x active:shadow-none active:translate-y-fill-shadow-y"
-      onClick={() => onClick(label)}
-      style={{ backgroundColor: color, color: "black" }}
-    >
-      {label}
-    </button>
-  );
-}
+import blueButtonLit from "../assets/images/buttons/button_blue_lit.png";
+import blueButtonUnlit from "../assets/images/buttons/button_blue_unlit.png";
+import greenButtonLit from "../assets/images/buttons/button_green_lit.png";
+import greenButtonUnlit from "../assets/images/buttons/button_green_unlit.png";
+import redButtonLit from "../assets/images/buttons/button_red_lit.png";
+import redButtonUnlit from "../assets/images/buttons/button_red_unlit.png";
+import yellowButtonLit from "../assets/images/buttons/button_yellow_lit.png";
+import yellowButtonUnlit from "../assets/images/buttons/button_yellow_unlit.png";
+import label1 from "../assets/images/labels/label_1.png";
+import label2 from "../assets/images/labels/label_2.png";
+import label3 from "../assets/images/labels/label_3.png";
+import label4 from "../assets/images/labels/label_4.png";
+import { CodeInputButton } from "./CodeInputButton";
 
 function validateCode(code: string) {
   return fileManifest.find((codeMatch) => codeMatch.code === code);
@@ -62,8 +56,14 @@ export function CodeInput({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="border-4 border-black rounded-lg bg-green-200 shadow-hard-xl shadow-black">
-        <div className="flex gap-4 p-4 font-bold rounded-lg">
+      <div className="border-4 border-black rounded-lg bg-stone-500 shadow-2xl">
+        <div
+          className={clsx(
+            "flex gap-4 m-4 p-2 font-bold rounded-lg bg-lime-100 border-4 border-black",
+            animateOut === "fail" && "animate-blinking-red",
+            animateOut === "success" && "animate-blinking-green"
+          )}
+        >
           {code
             .slice(0, 4)
             .padEnd(4)
@@ -72,9 +72,7 @@ export function CodeInput({
               <input
                 key={i}
                 className={clsx(
-                  " border-b-black border-b-4 text-center p-2 text-4xl w-10 bg-transparent rounded-sm text-black",
-                  animateOut === "fail" && "animate-blinking-red",
-                  animateOut === "success" && "animate-blinking-green"
+                  "border-b-black border-b-4 text-center p-2 text-5xl w-10 bg-transparent rounded-sm text-black font-segment"
                 )}
                 value={char}
                 readOnly
@@ -82,10 +80,38 @@ export function CodeInput({
             ))}
         </div>
         <div className="grid gap-4 grid-cols-2 p-4">
-          <CodeInputButton label="◊" color="red" onClick={handleCodeInput} />
-          <CodeInputButton label="∆" color="blue" onClick={handleCodeInput} />
-          <CodeInputButton label="∞" color="yellow" onClick={handleCodeInput} />
-          <CodeInputButton label="∂" color="green" onClick={handleCodeInput} />
+          <CodeInputButton
+            label="1"
+            onClick={handleCodeInput}
+            labelImg={label1}
+            buttonLit={redButtonLit}
+            buttonUnlit={redButtonUnlit}
+            isLit={code.includes("1")}
+          />
+          <CodeInputButton
+            label="2"
+            onClick={handleCodeInput}
+            labelImg={label2}
+            buttonLit={blueButtonLit}
+            buttonUnlit={blueButtonUnlit}
+            isLit={code.includes("2")}
+          />
+          <CodeInputButton
+            label="3"
+            onClick={handleCodeInput}
+            labelImg={label3}
+            buttonLit={yellowButtonLit}
+            buttonUnlit={yellowButtonUnlit}
+            isLit={code.includes("3")}
+          />
+          <CodeInputButton
+            label="4"
+            onClick={handleCodeInput}
+            labelImg={label4}
+            buttonLit={greenButtonLit}
+            buttonUnlit={greenButtonUnlit}
+            isLit={code.includes("4")}
+          />
         </div>
       </div>
 

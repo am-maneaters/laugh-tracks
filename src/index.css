@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* use font from ./assets/fonts/7segment.woff */
+@font-face {
+  font-family: "7segment";
+  src: url("./assets/fonts/7segment.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

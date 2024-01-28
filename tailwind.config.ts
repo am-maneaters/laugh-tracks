@@ -4,7 +4,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        segment: ["'7segment'", "sans-serif"],
+      },
       boxShadow: {
+        // medium softshadow
+        medium: "0 0 2px darkslategray",
         // hard shadow
         hard: "3px 6px",
         "hard-xl": "6px 12px",
