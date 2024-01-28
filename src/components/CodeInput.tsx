@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { useState } from "react";
 import AudioManager from "../audioManager";
 import { fileManifest } from "../constants";
-import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 
 import blueButtonLit from "../assets/images/buttons/button_blue_lit.png";
 import blueButtonUnlit from "../assets/images/buttons/button_blue_unlit.png";
@@ -56,7 +55,6 @@ function PostIt({
 export function CodeInput({
   onSoundChosen,
 }: {
-  videoPlayer?: YouTubePlayerType;
   onSoundChosen: (id: number) => void;
 }) {
   const [code, setCode] = useState<string>("");

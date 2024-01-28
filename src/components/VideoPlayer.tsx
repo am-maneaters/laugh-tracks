@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 import tvBackground from "../assets/images/background/tv_frame.png";
 import { config, videosMetadata, reallyGlobalShittyState } from "../constants";
 import { AnimatedTimer } from "./AnimatedTimer";
+import { useYoutubePlayer } from "../hooks/useYoutubePlayer";
 
 enum VideoState {
   Unstarted = -1,
@@ -14,18 +14,15 @@ enum VideoState {
 }
 
 export function VideoPlayer({
-  player,
-  videoRef,
   onTimeRanOut,
   goToNextScene,
   chosenSoundIds,
 }: {
-  player: YouTubePlayerType | undefined;
-  videoRef: React.MutableRefObject<HTMLDivElement | null>;
   onTimeRanOut: () => void;
   goToNextScene: () => void;
   chosenSoundIds: number[];
 }) {
+  const { videoRef, player } = useYoutubePlayer();
   const [nowPlaying, setNowPlaying] = useState({
     data: videosMetadata[0],
     beatIdx: 0,

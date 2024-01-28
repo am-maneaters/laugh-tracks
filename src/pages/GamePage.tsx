@@ -1,17 +1,12 @@
 import { CodeInput } from "../components/CodeInput";
 import { VideoPlayer } from "../components/VideoPlayer";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { GameMode } from "../types";
-import YouTubePlayer from "youtube-player";
-import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 import tvFrame from "../assets/images/background/tv_frame.png";
 import { VideoPlayback } from "../components/VideoPlayback";
 
 export function GamePage() {
-  const videoRef = useRef<HTMLDivElement | null>(null);
-
   const [chosenSoundIds, setChosenSoundIds] = useState<number[]>([]);
-  const [player, setPlayer] = useState<YouTubePlayerType>();
 
   const [gameMode, setGameMode] = useState<GameMode>("stills");
   const currentChosenSoundIdx = useRef(-1);
@@ -24,20 +19,6 @@ export function GamePage() {
       if (prev === "playback") return "menu";
       return prev;
     });
-  }, []);
-
-  // Initialize YouTube Player
-  useEffect(() => {
-    if (!videoRef.current) return;
-    const player = YouTubePlayer(videoRef.current, {
-      playerVars: {
-        // Prevents extra stuff from blocking the video frame
-        rel: 0,
-        controls: 0,
-        iv_load_policy: 3,
-      },
-    });
-    setPlayer(player);
   }, []);
 
   const finalizeChoice = useCallback(() => {
@@ -90,8 +71,6 @@ export function GamePage() {
     return (
       <div className="flex flex-col items-center gap-4">
         <VideoPlayback
-          player={player}
-          videoRef={videoRef}
           goToNextScene={goToNextScene}
           chosenSoundIds={chosenSoundIds}
         />
@@ -102,13 +81,11 @@ export function GamePage() {
   return (
     <div className="flex flex-col items-center gap-4">
       <VideoPlayer
-        player={player}
-        videoRef={videoRef}
         goToNextScene={goToNextScene}
         onTimeRanOut={finalizeChoice}
         chosenSoundIds={chosenSoundIds}
       />
-      <CodeInput onSoundChosen={setChosenSound} videoPlayer={player} />
+      <CodeInput onSoundChosen={setChosenSound} />
     </div>
   );
 }

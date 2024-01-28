@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
-import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 import tvBackground from "../assets/images/background/tv_frame.png";
 import { config, videosMetadata, reallyGlobalShittyState } from "../constants";
 import audioManager from "../audioManager";
+import { useYoutubePlayer } from "../hooks/useYoutubePlayer";
 
 export function VideoPlayback({
-  player,
-  videoRef,
-
   goToNextScene,
   chosenSoundIds,
 }: {
-  player: YouTubePlayerType | undefined;
-  videoRef: React.MutableRefObject<HTMLDivElement | null>;
   goToNextScene: () => void;
   chosenSoundIds: number[];
 }) {
+  const { player, videoRef } = useYoutubePlayer();
+
   const [nowPlaying, setNowPlaying] = useState({
     data: videosMetadata[0],
     beatIdx: 0,
@@ -82,7 +79,7 @@ export function VideoPlayback({
         <div
           ref={videoRef}
           // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
-          className="h-[320px] w-auto aspect-video absolute -z-10 top-[65px] left-[10px] bg-blue-500"
+          className="h-[320px] w-auto aspect-video absolute -z-10 top-[65px] left-[10px] staticcy"
         />
 
         <div className="flex flex-col">
