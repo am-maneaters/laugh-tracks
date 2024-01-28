@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+<p align="center">
+<img src="src/assets/images/logos/laff_tracker_logo.png">
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# How to Play
 
-Currently, two official plugins are available:
+Page 1.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Laff Tracker 108-S
+OPERATION MANUAL
 
-## Expanding the ESLint configuration
+Congratulations on you or your employer's purchase of a brand new Laff Tracker unit, model number 108-S. Welcome to the brave new world of Digital Audience Augmentation (DAA)! You will have hours of fun adding real human responses to video clips of all sorts!
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Page 2: First Steps
 
-- Configure the top-level `parserOptions` property like this:
+Initialize your unit using the convenient start button. Your Laff Tracker 108-S will begin showing you a series of images. Think about what kind of mood the images put you in, and how you might respond as a real viewer. You will have 20 Seconds to form your opinion.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Page 3: Selecting Audience Sounds
+
+Using our patented Dial-A-Sound system, enter the code corresponding to the most appropriate sound effect for the images. Each Dial-A-Sound code uses all four buttons exactly once. Be sure you make a selection before the timer runs out!
+
+(For a nominal fee, a comprehensive code listing may be obtained separately)
+
+Page 4: Playback and Review
+
+The machine will then play each video clip, with your audience responses mixed into the audio. Review the results to see if you chose the correct sounds. These are defined by your employer and/or regional Digital Audience Augmentation Board (DAAB).
+
+And remember - "Leave No Awkward Silence Unfilled!"
+
+-LAFF TRACKER, INC.
+
+<p align="center">
+<img src="src/assets/images/screenshots/game_screenshot.png">
+</p>
+
+# Build and Run
+
+Install nodejs and npm for your operating system, then run the following commands.
+
+```shell
+npm install
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Credits
+
+Made for the [2024 Global Gam Jam](https://globalgamejam.org/games/2024/laff-tracker-5).
+
+- [@J0315C-human](https://github.com/J0315C-human)
+- [@am-maneaters](https://github.com/am-maneaters)
+- [@cdsupina](https://github.com/cdsupina)
+- Art by Reese Valentine
