@@ -174,13 +174,6 @@ export const videosMetadata: VideoMetadata[] = [
     videoId: "aYHzV2Y9UgY",
   },
   {
-    label: "Cocomelon Funny Face",
-    videoId: "Mt_CIBlEGos",
-    startTime: 153,
-    beatTime: [157],
-    endTime: 162,
-  },
-  {
     label: "Kids Dancing",
     videoId: "g0Z0WaTl9Sw",
     startTime: 9,
@@ -263,6 +256,13 @@ export const videosMetadata: VideoMetadata[] = [
     startTime: 118,
     endTime: 138,
     beatTime: [126.5, 134.3],
+  },
+  {
+    label: "Zoro and Luffy",
+    startTime: 0,
+    endTime: 5,
+    beatTime: [2.85, 4.1],
+    videoId: "AIMJ1fyTuf0",
   },
 ];
 
