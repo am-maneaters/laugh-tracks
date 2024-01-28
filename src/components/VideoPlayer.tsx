@@ -38,6 +38,8 @@ export function VideoPlayer({
   });
   const timeLastBeatBegan = useRef(Date.now());
 
+  const [countdownText, setCountdownText] = useState("");
+
   // Load the video when the player is ready or the current video changes
   useEffect(() => {
     if (!player || !nowPlaying) return;
@@ -103,13 +105,17 @@ export function VideoPlayer({
     };
   }, [player, nowPlaying, mode]);
 
-  // Watch for "still" image changes
+  // Watch for "still" image chan ges
   useEffect(() => {
     if (!player || !nowPlaying) return;
     const interval = setInterval(() => {
       if (mode === "stills") {
         const now = Date.now();
-        if (now - timeLastBeatBegan.current <= config.beatChoiceTimeMs) return;
+        const elapsed = now - timeLastBeatBegan.current;
+        setCountdownText(
+          `${Math.ceil((config.beatChoiceTimeMs - elapsed) / 1000)}`
+        );
+        if (elapsed <= config.beatChoiceTimeMs) return;
 
         timeLastBeatBegan.current = now;
 
@@ -161,7 +167,7 @@ export function VideoPlayer({
           />
         </div>
       </div>
-
+      <div className="text-3xl">TIME LEFT: {countdownText}</div>
       {/* pause/play button */}
       <button
         onClick={() => {
