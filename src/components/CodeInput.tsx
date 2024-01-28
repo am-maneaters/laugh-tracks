@@ -31,6 +31,7 @@ function validateCode(code: string) {
 export function CodeInput({ videoPlayer, onSoundPlayed }: { videoPlayer?: YouTubePlayerType; onSoundPlayed: (id: number) => void }) {
   const [code, setCode] = useState<string>("");
   const [animateOut, setAnimateOut] = useState<"fail" | "success">();
+  const [, setInputHistory] = useState<AudioManifestItem[]>([]);
 
   const handleCodeInput = (label: string) => {
     const newCode = code + label;
