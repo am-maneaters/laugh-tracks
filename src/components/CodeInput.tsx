@@ -31,7 +31,7 @@ function validateCode(code: string) {
 export function CodeInput() {
   const [code, setCode] = useState<string>("");
   const [animateOut, setAnimateOut] = useState<"fail" | "success">();
-  const [inputHistory, setInputHistory] = useState<AudioManifestItem[]>([]);
+  const [, setInputHistory] = useState<AudioManifestItem[]>([]);
 
   const handleCodeInput = (label: string) => {
     const newCode = code + label;
