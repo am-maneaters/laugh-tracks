@@ -3,6 +3,7 @@ import { useState } from "react";
 import AudioManager from "../audioManager";
 import { fileManifest } from "../constants";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
+import { AudioManifestItem } from "../types";
 
 function CodeInputButton({
   label,
@@ -28,7 +29,13 @@ function validateCode(code: string) {
   return fileManifest.find((codeMatch) => codeMatch.code === code);
 }
 
-export function CodeInput({ videoPlayer, onSoundPlayed }: { videoPlayer?: YouTubePlayerType; onSoundPlayed: (id: number) => void }) {
+export function CodeInput({
+  videoPlayer,
+  onSoundPlayed,
+}: {
+  videoPlayer?: YouTubePlayerType;
+  onSoundPlayed: (id: number) => void;
+}) {
   const [code, setCode] = useState<string>("");
   const [animateOut, setAnimateOut] = useState<"fail" | "success">();
   const [, setInputHistory] = useState<AudioManifestItem[]>([]);
