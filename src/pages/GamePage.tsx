@@ -35,7 +35,7 @@ export function GamePage() {
   return (
     <div className="flex flex-col items-center gap-4">
       <h1>Soundboard</h1>
-      <VideoPlayer player={player} videoRef={videoRef} />
+      <VideoPlayer player={player} videoRef={videoRef} mode="playback"/>
       <CodeInput onSoundPlayed={onSoundPlayed} videoPlayer={player} />
     </div>
   );

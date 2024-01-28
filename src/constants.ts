@@ -1,9 +1,9 @@
 import { AudioManifestItem, ScoreReference, VideoMetadata } from "./types";
 
 function getAudioUrl(filename: string) {
-    return new URL(`./assets/${filename}`, import.meta.url).href;
+  return new URL(`./assets/${filename}`, import.meta.url).href;
 }
-  
+
 export const fileManifest: AudioManifestItem[] = [
   {
     id: 0,
@@ -132,7 +132,6 @@ export const scoreReference_TEST: ScoreReference = {
   ],
 };
 
-
 export const videosMetadata: VideoMetadata[] = [
   {
     label: "Kevin introduction",
@@ -142,7 +141,7 @@ export const videosMetadata: VideoMetadata[] = [
     videoId: "CziLDGyo8W8",
   },
   {
-    label: "Kevin introduction",
+    label: "Mousey",
     startTime: 0,
     endTime: 10,
     beatTime: [4, 6],
@@ -163,11 +162,11 @@ export const videosMetadata: VideoMetadata[] = [
     endTime: 35,
   },
   {
-    label: "Death",
-    videoId: "f4yXBIigZbg",
-    startTime: 10,
-    endTime: 31,
-    beatTime: [18, 25],
+    label: "Twin Peaks",
+    videoId: "amgX_81kEYQ",
+    startTime: 25,
+    endTime: 44,
+    beatTime: [36, 53],
   },
   {
     label: "A Serious Man",
@@ -233,3 +232,13 @@ export const videosMetadata: VideoMetadata[] = [
     videoId: "Bxc_55ur-J4",
   },
 ];
+
+let videoIdx = 0;
+export const getNextVideo = () => {
+  videoIdx = (videoIdx + 1) % videosMetadata.length;
+  return videosMetadata[videoIdx];
+};
+
+export const config = {
+  beatChoiceTimeMs: 3000, // how long you have to dial a sound
+};

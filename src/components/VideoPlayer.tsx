@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
-import { videosMetadata } from "../constants";
+import { config, getNextVideo, videosMetadata } from "../constants";
 
 enum VideoState {
   Unstarted = -1,
@@ -14,21 +14,32 @@ enum VideoState {
 export function VideoPlayer({
   player,
   videoRef,
+  mode,
 }: {
   player: YouTubePlayerType | undefined;
   videoRef: React.MutableRefObject<HTMLDivElement | null>;
+  mode: "still" | "playback";
 }) {
   const [videoState, setVideoState] = useState<
     "playing" | "paused" | "stopped"
   >("stopped");
 
-  const [currentVideo, setCurrentVideo] = useState(videosMetadata.pop());
+  const [nowPlaying, setNowPlaying] = useState({
+    data: videosMetadata[0],
+    beatIdx: 0,
+  });
+  const timeLastBeatBegan = useRef(Date.now());
 
   // Load the video when the player is ready or the current video changes
   useEffect(() => {
-    if (!player || !currentVideo) return;
-    player.loadVideoById(currentVideo.videoId, currentVideo.startTime);
-  }, [player, currentVideo]);
+    if (!player || !nowPlaying) return;
+    player.loadVideoById(
+      nowPlaying.data.videoId,
+      mode === "playback"
+        ? nowPlaying.data.startTime
+        : nowPlaying.data.beatTime[nowPlaying.beatIdx]
+    );
+  }, [player, nowPlaying]);
 
   // Watch for Video state changes
   useEffect(() => {
@@ -38,9 +49,12 @@ export function VideoPlayer({
       const state = e.data as VideoState;
 
       switch (state) {
-        case VideoState.Playing:
-          setVideoState("playing");
+        case VideoState.Playing: {
+          if (mode === "still")
+            player.pauseVideo(); // Immediately re-pause if it's supposed to be stills
+          else setVideoState("playing");
           break;
+        }
         case VideoState.Paused:
           setVideoState("paused");
           break;
@@ -54,26 +68,57 @@ export function VideoPlayer({
       // @ts-expect-error - types are wrong
       player.off(handler);
     };
-  }, [player]);
+  }, [player, mode]);
 
-  // Watch for video time changes using setInterval
+  // Watch for "playback" mode video time changes using setInterval
   useEffect(() => {
-    if (!player || !currentVideo) return;
+    if (!player || !nowPlaying) return;
 
-    const interval = setInterval(
-      () =>
+    const interval = setInterval(() => {
+      if (mode === "playback")
         player.getCurrentTime().then((time) => {
-          if (time > currentVideo.endTime) {
-            setCurrentVideo(videosMetadata.pop());
+          if (time > nowPlaying.data.endTime) {
+            setNowPlaying({
+              data: getNextVideo(),
+              beatIdx: 0,
+            });
           }
-        }),
-      200
-    );
+        });
+    }, 200);
 
     return () => {
       clearInterval(interval);
     };
-  }, [player, currentVideo]);
+  }, [player, nowPlaying, mode]);
+
+  // Watch for "still" image changes
+  useEffect(() => {
+    if (!player || !nowPlaying) return;
+    const interval = setInterval(() => {
+      if (mode === "still") {
+        if (Date.now() - timeLastBeatBegan.current > config.beatChoiceTimeMs) {
+          timeLastBeatBegan.current = Date.now();
+          if (nowPlaying.beatIdx < nowPlaying.data.beatTime.length - 1) {
+            // jump to next "beat" if needed
+            setNowPlaying((prev) => ({
+              data: prev.data,
+              beatIdx: prev.beatIdx + 1,
+            }));
+          } else {
+            // go to next video
+            setNowPlaying({
+              data: getNextVideo(),
+              beatIdx: 0,
+            });
+          }
+        }
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [player, nowPlaying, mode]);
 
   return (
     <div className="flex flex-col gap-4 items-center">
