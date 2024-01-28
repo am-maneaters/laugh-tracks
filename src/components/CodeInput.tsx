@@ -19,7 +19,7 @@ import label4 from "../assets/images/labels/label_4.png";
 import { CodeInputButton } from "./CodeInputButton";
 import postitGreen from "../assets/images/postits/postit_green.png";
 import postitOrange from "../assets/images/postits/postit_orange.png";
-// import postitYellow from "../assets/images/postits/postit_yellow.png";
+import postitYellow from "../assets/images/postits/postit_yellow.png";
 
 function validateCode(code: string) {
   return fileManifest.find((codeMatch) => codeMatch.code === code);
@@ -46,7 +46,9 @@ function PostIt({
       )}
     >
       <img src={img} alt="post-it" className="w-64" />
-      <div className="absolute text-black text-xl h-full flex justify-center flex-col">{text}</div>
+      <div className="absolute text-black text-xl h-full flex justify-center flex-col">
+        {text}
+      </div>
     </div>
   );
 }
@@ -104,7 +106,7 @@ export function CodeInput({
         <PostIt
           className="rotate-12 -translate-y-8"
           img={postitYellow}
-          text={fileManifest.slice(4,8).map(({ code, title }) => (
+          text={fileManifest.slice(4, 8).map(({ code, title }) => (
             <div key={code}>
               {title}: {code}
             </div>
