@@ -42,6 +42,7 @@ npm run dev
 
 Made for the [2024 Global Gam Jam](https://globalgamejam.org/games/2024/laff-tracker-5).
 
-@J0315C-human
-@am-maneaters
-@cdsupina
+- [@J0315C-human](https://github.com/J0315C-human)
+- [@am-maneaters](https://github.com/am-maneaters)
+- [@cdsupina](https://github.com/cdsupina)
+- Art by Reese Valentine
