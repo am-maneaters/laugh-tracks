@@ -1,5 +1,4 @@
 export type GameMode =
-  | "menu"
   | "tutorial"
   | "stills"
   | "prep_playback"

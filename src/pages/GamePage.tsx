@@ -1,25 +1,36 @@
 import { CodeInput } from "../components/CodeInput";
 import { VideoPlayer } from "../components/VideoPlayer";
+import { TutorialStep } from "../components/TutorialStep";
 import { useCallback, useRef, useState } from "react";
 import { GameMode } from "../types";
 import tvFrame from "../assets/images/background/tv_frame.png";
 import { VideoPlayback } from "../components/VideoPlayback";
 
-export function GamePage() {
+interface Props {
+  onGameEnd: () => void;
+}
+export function GamePage({ onGameEnd }: Props) {
   const [chosenSoundIds, setChosenSoundIds] = useState<number[]>([]);
 
-  const [gameMode, setGameMode] = useState<GameMode>("stills");
+  const [gameMode, setGameMode] = useState<GameMode>("tutorial");
   const currentChosenSoundIdx = useRef(-1);
 
   const goToNextScene = useCallback(() => {
+    if (gameMode === "playback") {
+      return onGameEnd();
+    }
+    const sequence: GameMode[] = [
+      "tutorial",
+      "stills",
+      "prep_playback",
+      "playback",
+    ];
+
     setGameMode((prev) => {
-      if (prev === "menu") return "stills";
-      if (prev === "stills") return "prep_playback";
-      if (prev === "prep_playback") return "playback";
-      if (prev === "playback") return "menu";
-      return prev;
+      const idx = sequence.findIndex((x) => x === prev);
+      return sequence[(idx + 1) % sequence.length];
     });
-  }, []);
+  }, [onGameEnd, gameMode]);
 
   const finalizeChoice = useCallback(() => {
     setChosenSoundIds((prev) => {
@@ -34,6 +45,9 @@ export function GamePage() {
     currentChosenSoundIdx.current = id;
   }, []);
 
+  if (gameMode === "tutorial") {
+    return <TutorialStep goToNextScene={goToNextScene} />;
+  }
   if (gameMode === "prep_playback") {
     return (
       <div className="flex flex-col items-center gap-4">

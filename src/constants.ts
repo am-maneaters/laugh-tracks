@@ -280,5 +280,5 @@ export const reallyGlobalShittyState = {
 
 export const config = {
   beatChoiceTimeMs: 9000, // how long you have to dial a sound
-  numVideosPerSession: 1,
+  numVideosPerSession: 2,
 };
