@@ -21,16 +21,18 @@ export function VideoPlayer({
   player,
   videoRef,
   mode,
+  onTimeRanOut,
   goToNextScene,
 }: {
   player: YouTubePlayerType | undefined;
   videoRef: React.MutableRefObject<HTMLDivElement | null>;
   mode: GameMode;
+  onTimeRanOut: () => void;
   goToNextScene: () => void;
 }) {
-  const [videoState, setVideoState] = useState<
-    "playing" | "paused" | "stopped"
-  >("stopped");
+  // const [videoState, setVideoState] = useState<
+  //   "playing" | "paused" | "stopped"
+  // >("stopped");
 
   const [nowPlaying, setNowPlaying] = useState({
     data: videosMetadata[0],
@@ -64,17 +66,16 @@ export function VideoPlayer({
 
       switch (state) {
         case VideoState.Playing: {
-          if (mode === "stills")
-            player.pauseVideo(); // Immediately re-pause if it's supposed to be stills
-          else setVideoState("playing");
+          if (mode === "stills") player.pauseVideo(); // Immediately re-pause if it's supposed to be stills
+          // else setVideoState("playing");
           break;
         }
-        case VideoState.Paused:
-          setVideoState("paused");
-          break;
-        case VideoState.Ended:
-          setVideoState("stopped");
-          break;
+        // case VideoState.Paused:
+        //   setVideoState("paused");
+        //   break;
+        // case VideoState.Ended:
+        //   setVideoState("stopped");
+        //   break;
       }
     });
 
@@ -105,7 +106,7 @@ export function VideoPlayer({
     };
   }, [player, nowPlaying, mode]);
 
-  // Watch for "still" image chan ges
+  // "STILLS" mode - timer based
   useEffect(() => {
     if (!player || !nowPlaying) return;
     const interval = setInterval(() => {
@@ -118,6 +119,7 @@ export function VideoPlayer({
         if (elapsed <= config.beatChoiceTimeMs) return;
 
         timeLastBeatBegan.current = now;
+        onTimeRanOut();
 
         if (nowPlaying.beatIdx < nowPlaying.data.beatTime.length - 1) {
           // jump to next "beat" if needed
@@ -146,7 +148,7 @@ export function VideoPlayer({
     return () => {
       clearInterval(interval);
     };
-  }, [player, nowPlaying, mode, goToNextScene]);
+  }, [player, nowPlaying, mode, goToNextScene, onTimeRanOut]);
 
   return (
     <div className="flex flex-col gap-4 items-center">
@@ -168,48 +170,6 @@ export function VideoPlayer({
         </div>
       </div>
       <div className="text-3xl">TIME LEFT: {countdownText}</div>
-      {/* pause/play button */}
-      <button
-        onClick={() => {
-          if (videoState === "playing") {
-            player?.pauseVideo();
-          } else {
-            player?.playVideo();
-          }
-        }}
-        className="p-4 border-2 rounded-lg "
-      >
-        {videoState === "playing" ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <rect x="6" y="4" width="4" height="16"></rect>
-            <rect x="14" y="4" width="4" height="16"></rect>
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
-        )}
-      </button>
     </div>
   );
 }
