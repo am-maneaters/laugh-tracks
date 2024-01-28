@@ -1,11 +1,17 @@
+import { useEffect } from "react";
 import tvFrame from "../assets/images/background/tv_frame.png";
 import mainMenuClip from "../assets/videos/main_menu_clips.webm";
+import { reallyGlobalShittyState, shuffleVideos } from "../constants";
 
 interface MainMenuProps {
   onGameStart: () => void;
 }
 
 export function MainMenu({ onGameStart }: MainMenuProps) {
+  useEffect(() => {
+    shuffleVideos();
+    reallyGlobalShittyState.videoIdx = 0;
+  }, []);
   return (
     <div className="flex flex-col items-center gap-4">
       <img src="src/assets/images/logos/laff_tracker_logo.png"></img>

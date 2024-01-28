@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AudioManager from "../audioManager";
-import { fileManifest } from "../constants";
+import { fileManifest, reallyGlobalShittyState } from "../constants";
 
 import blueButtonLit from "../assets/images/buttons/button_blue_lit.png";
 import blueButtonUnlit from "../assets/images/buttons/button_blue_unlit.png";
@@ -57,8 +57,31 @@ export function CodeInput({
 }: {
   onSoundChosen: (id: number) => void;
 }) {
+  const [tCount, setTCount] = useState<number>(
+    reallyGlobalShittyState.transitionCount
+  );
   const [code, setCode] = useState<string>("");
-  const [animateOut, setAnimateOut] = useState<"fail" | "success">();
+  const [codeStatus, setCodeStatus] = useState<"fail" | "success">();
+
+  useEffect(() => {
+    // clear input when index of video changes
+    const interval = setInterval(() => {
+      {
+        if (reallyGlobalShittyState.transitionCount !== tCount) {
+          setTCount(reallyGlobalShittyState.transitionCount);
+        }
+      }
+    }, 60);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [tCount]);
+
+  // clear inputs when new beat is starting
+  useEffect(() => {
+    setCode("");
+    setCodeStatus(undefined);
+  }, [tCount]);
 
   const handleCodeInput = (label: string) => {
     if (code.split("").includes(label)) {
@@ -80,11 +103,12 @@ export function CodeInput({
         AudioManager.playSound(codeMatch.id);
         onSoundChosen(codeMatch.id);
       }
-      setAnimateOut(codeMatch ? "success" : "fail");
-      setTimeout(() => {
-        setAnimateOut(undefined);
-        setCode("");
-      }, 1000);
+      setCodeStatus(codeMatch ? "success" : "fail");
+      if (!codeMatch)
+        setTimeout(() => {
+          setCodeStatus(undefined);
+          setCode("");
+        }, 1000);
       return;
     }
   };
@@ -116,8 +140,8 @@ export function CodeInput({
         <div
           className={clsx(
             "flex gap-4 m-4 p-2 font-bold rounded-lg bg-lime-100 border-4 border-black",
-            animateOut === "fail" && "animate-blinking-red",
-            animateOut === "success" && "animate-blinking-green"
+            codeStatus === "fail" && "animate-blinking-red",
+            codeStatus === "success" && "animate-blinking-green"
           )}
         >
           {code

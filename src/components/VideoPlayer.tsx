@@ -72,6 +72,7 @@ export function VideoPlayer({
 
       if (nowPlaying.beatIdx < nowPlaying.data.beatTime.length - 1) {
         // jump to next "beat" if needed
+        reallyGlobalShittyState.transitionCount++;
         setNowPlaying((prev) => ({
           data: prev.data,
           beatIdx: prev.beatIdx + 1,
@@ -89,6 +90,7 @@ export function VideoPlayer({
         goToNextScene();
       } else {
         // go to next video
+        reallyGlobalShittyState.transitionCount++;
         setNowPlaying({
           data: videosMetadata[++reallyGlobalShittyState.videoIdx],
           beatIdx: 0,

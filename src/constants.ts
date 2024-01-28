@@ -266,16 +266,18 @@ export const videosMetadata: VideoMetadata[] = [
   },
 ];
 
-// // shuffle videos on load
-for (let i = 0; i < 100; i++) {
-  const idx = Math.floor(Math.random() * videosMetadata.length);
+export const shuffleVideos = () => {
+  for (let i = 0; i < 100; i++) {
+    const idx = Math.floor(Math.random() * videosMetadata.length);
 
-  videosMetadata.push(videosMetadata[idx]);
-  videosMetadata.splice(idx, 1);
-}
+    videosMetadata.push(videosMetadata[idx]);
+    videosMetadata.splice(idx, 1);
+  }
+};
 
 export const reallyGlobalShittyState = {
   videoIdx: 0,
+  transitionCount: 0
 };
 
 export const config = {

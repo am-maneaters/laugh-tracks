@@ -25,7 +25,7 @@ export default {
         // blinking red for fail
         "blinking-red": "blinking-red 0.5s ease-in-out infinite",
         // blinking green for success
-        "blinking-green": "blinking-green 0.5s ease-in-out infinite",
+        "blinking-green": "blinking-green 1.2s ease-in-out infinite",
       },
       keyframes: {
         // blinking red for fail
@@ -35,8 +35,8 @@ export default {
         },
         // blinking green for success
         "blinking-green": {
-          "0%, 100%": { backgroundColor: "rgba(0, 255, 0, 0.2)" },
-          "50%": { backgroundColor: "rgba(0, 255, 0, 1)" },
+          "0%, 100%": { backgroundColor: "rgba(0, 255, 0, 0.3)" },
+          "50%": { backgroundColor: "rgba(0, 255, 0, 0.6)" },
         },
       },
     },
