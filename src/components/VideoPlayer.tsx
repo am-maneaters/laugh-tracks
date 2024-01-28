@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
-import { config, getNextVideo, videosMetadata } from "../constants";
 import tvBackground from "../assets/images/background/tv_frame.png";
+import {
+  config,
+  videosMetadata,
+  reallyGlobalShittyState as global,
+} from "../constants";
+import { GameMode } from "../types";
 
 enum VideoState {
   Unstarted = -1,
@@ -16,10 +21,12 @@ export function VideoPlayer({
   player,
   videoRef,
   mode,
+  goToNextScene,
 }: {
   player: YouTubePlayerType | undefined;
   videoRef: React.MutableRefObject<HTMLDivElement | null>;
-  mode: "still" | "playback";
+  mode: GameMode;
+  goToNextScene: () => void;
 }) {
   const [videoState, setVideoState] = useState<
     "playing" | "paused" | "stopped"
@@ -34,13 +41,17 @@ export function VideoPlayer({
   // Load the video when the player is ready or the current video changes
   useEffect(() => {
     if (!player || !nowPlaying) return;
-    player.loadVideoById(
-      nowPlaying.data.videoId,
-      mode === "playback"
-        ? nowPlaying.data.startTime
-        : nowPlaying.data.beatTime[nowPlaying.beatIdx]
-    );
-  }, [player, nowPlaying]);
+    player
+      .loadVideoById(
+        nowPlaying.data.videoId,
+        mode === "playback"
+          ? nowPlaying.data.startTime
+          : nowPlaying.data.beatTime[nowPlaying.beatIdx]
+      )
+      .then(() => {
+        if (mode === "playback") player.playVideo();
+      });
+  }, [player, nowPlaying, mode]);
 
   // Watch for Video state changes
   useEffect(() => {
@@ -51,7 +62,7 @@ export function VideoPlayer({
 
       switch (state) {
         case VideoState.Playing: {
-          if (mode === "still")
+          if (mode === "stills")
             player.pauseVideo(); // Immediately re-pause if it's supposed to be stills
           else setVideoState("playing");
           break;
@@ -80,7 +91,7 @@ export function VideoPlayer({
         player.getCurrentTime().then((time) => {
           if (time > nowPlaying.data.endTime) {
             setNowPlaying({
-              data: getNextVideo(),
+              data: videosMetadata[++global.videoIdx],
               beatIdx: 0,
             });
           }
@@ -96,22 +107,32 @@ export function VideoPlayer({
   useEffect(() => {
     if (!player || !nowPlaying) return;
     const interval = setInterval(() => {
-      if (mode === "still") {
-        if (Date.now() - timeLastBeatBegan.current > config.beatChoiceTimeMs) {
-          timeLastBeatBegan.current = Date.now();
-          if (nowPlaying.beatIdx < nowPlaying.data.beatTime.length - 1) {
-            // jump to next "beat" if needed
-            setNowPlaying((prev) => ({
-              data: prev.data,
-              beatIdx: prev.beatIdx + 1,
-            }));
-          } else {
-            // go to next video
-            setNowPlaying({
-              data: getNextVideo(),
-              beatIdx: 0,
-            });
-          }
+      if (mode === "stills") {
+        const now = Date.now();
+        if (now - timeLastBeatBegan.current <= config.beatChoiceTimeMs) return;
+
+        timeLastBeatBegan.current = now;
+
+        if (nowPlaying.beatIdx < nowPlaying.data.beatTime.length - 1) {
+          // jump to next "beat" if needed
+          setNowPlaying((prev) => ({
+            data: prev.data,
+            beatIdx: prev.beatIdx + 1,
+          }));
+        } else if (global.videoIdx + 1 === config.numVideosPerSession) {
+          // done doing beat sound selections - go back to first video for playback
+          global.videoIdx = 0;
+          setNowPlaying({
+            data: videosMetadata[0],
+            beatIdx: 0,
+          });
+          goToNextScene();
+        } else {
+          // go to next video
+          setNowPlaying({
+            data: videosMetadata[++global.videoIdx],
+            beatIdx: 0,
+          });
         }
       }
     }, 200);
@@ -119,7 +140,7 @@ export function VideoPlayer({
     return () => {
       clearInterval(interval);
     };
-  }, [player, nowPlaying, mode]);
+  }, [player, nowPlaying, mode, goToNextScene]);
 
   return (
     <div className="flex flex-col gap-4 items-center">

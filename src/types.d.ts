@@ -1,3 +1,6 @@
+
+export type GameMode = "menu" | "tutorial" | "stills" | "playback";
+
 export interface AudioManifestItem {
   id: number;
   filename: string;
