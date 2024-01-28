@@ -73,13 +73,13 @@ export function VideoPlayback({
   }, [player, nowPlaying, goToNextScene]);
 
   return (
-    <div className="flex flex-row gap-4 items-center">
+    <div className="flex flex-row gap-4 items-center h-screen">
       {/* Container for video and TV frame with cutout to put tv inside of */}
       <div className="relative overflow-hidden">
         <div
           ref={videoRef}
           // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
-          className="h-[320px] w-auto aspect-video absolute -z-10 top-[65px] left-[10px] staticcy"
+          className="h-[500px] w-auto aspect-video absolute -z-10 top-[65px] left-[10px] staticcy"
         />
 
         <div className="flex flex-col">
@@ -87,7 +87,7 @@ export function VideoPlayback({
           <img
             src={tvBackground}
             alt="tv"
-            className="w-auto h-[460px] rounded-xl opacity-100 z-10"
+            className="w-auto h-[640px] rounded-xl opacity-100 z-10"
           />
         </div>
       </div>
