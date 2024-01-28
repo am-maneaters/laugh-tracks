@@ -11,6 +11,8 @@ export function GamePage() {
   const [inputHistory, setInputHistory] = useState<PlayerEvent[]>([]);
   const [player, setPlayer] = useState<YouTubePlayerType>();
 
+  const [gameMode, setGameMode] = useState<"still" | "playback">("still");
+
   // Initialize YouTube Player
   useEffect(() => {
     if (!videoRef.current) return;
@@ -35,7 +37,12 @@ export function GamePage() {
   return (
     <div className="flex flex-col items-center gap-4">
       <h1>Soundboard</h1>
-      <VideoPlayer player={player} videoRef={videoRef} mode="playback"/>
+      <VideoPlayer
+        player={player}
+        videoRef={videoRef}
+        mode={gameMode}
+        goToNext={() => setGameMode("playback")}
+      />
       <CodeInput onSoundPlayed={onSoundPlayed} videoPlayer={player} />
     </div>
   );

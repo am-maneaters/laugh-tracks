@@ -233,6 +233,14 @@ export const videosMetadata: VideoMetadata[] = [
   },
 ];
 
+// shuffle videos on load
+for (let i = 0; i < 100; i++){
+  const idx = Math.floor(Math.random() * videosMetadata.length);
+
+  videosMetadata.push(videosMetadata[idx]);
+  videosMetadata.splice(idx, 1)
+}
+
 let videoIdx = 0;
 export const getNextVideo = () => {
   videoIdx = (videoIdx + 1) % videosMetadata.length;
@@ -240,5 +248,6 @@ export const getNextVideo = () => {
 };
 
 export const config = {
-  beatChoiceTimeMs: 3000, // how long you have to dial a sound
+  beatChoiceTimeMs: 8000, // how long you have to dial a sound
+  numVideosPerSession: 5
 };

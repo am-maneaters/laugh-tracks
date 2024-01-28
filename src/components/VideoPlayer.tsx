@@ -19,6 +19,7 @@ export function VideoPlayer({
   player: YouTubePlayerType | undefined;
   videoRef: React.MutableRefObject<HTMLDivElement | null>;
   mode: "still" | "playback";
+  goToNext: () => void;
 }) {
   const [videoState, setVideoState] = useState<
     "playing" | "paused" | "stopped"
@@ -33,13 +34,17 @@ export function VideoPlayer({
   // Load the video when the player is ready or the current video changes
   useEffect(() => {
     if (!player || !nowPlaying) return;
-    player.loadVideoById(
-      nowPlaying.data.videoId,
-      mode === "playback"
-        ? nowPlaying.data.startTime
-        : nowPlaying.data.beatTime[nowPlaying.beatIdx]
-    );
-  }, [player, nowPlaying]);
+    player
+      .loadVideoById(
+        nowPlaying.data.videoId,
+        mode === "playback"
+          ? nowPlaying.data.startTime
+          : nowPlaying.data.beatTime[nowPlaying.beatIdx]
+      )
+      .then(() => {
+        if (mode === "playback") player.playVideo();
+      });
+  }, [player, nowPlaying, mode]);
 
   // Watch for Video state changes
   useEffect(() => {
