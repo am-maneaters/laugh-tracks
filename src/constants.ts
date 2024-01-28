@@ -49,9 +49,9 @@ export const fileManifest: AudioManifestItem[] = [
   },
   {
     id: 7,
-    filename: getAudioUrl("audio/applause.mp3"),
-    title: "Applause",
-    code: "3142",
+    filename: getAudioUrl("audio/boo.mp3"),
+    title: "Boo!",
+    code: "4132",
   },
   {
     id: 8,
@@ -76,6 +76,12 @@ export const fileManifest: AudioManifestItem[] = [
     filename: getAudioUrl("audio/clearing_throat.mp3"),
     title: "Man Clearing Throat",
     code: "3241",
+  },
+  {
+    id: 12,
+    filename: getAudioUrl("audio/applause.mp3"),
+    title: "Applause",
+    code: "3142",
   },
 ];
 
@@ -133,6 +139,7 @@ export const scoreReference_TEST: ScoreReference = {
 };
 
 export const videosMetadata: VideoMetadata[] = [
+
   {
     label: "Kevin introduction",
     startTime: 0,
@@ -219,9 +226,9 @@ export const videosMetadata: VideoMetadata[] = [
   },
   {
     label: "DJ Khaled Guitar",
-    startTime: 2,
+    startTime: 23,
     endTime: 43,
-    beatTime: [11.5, 28, 37],
+    beatTime: [28, 38.5],
     videoId: "3QvgFbjAC7U",
   },
   {
@@ -233,7 +240,7 @@ export const videosMetadata: VideoMetadata[] = [
   },
 ];
 
-// shuffle videos on load
+// // shuffle videos on load
 for (let i = 0; i < 100; i++){
   const idx = Math.floor(Math.random() * videosMetadata.length);
 
@@ -241,13 +248,11 @@ for (let i = 0; i < 100; i++){
   videosMetadata.splice(idx, 1)
 }
 
-let videoIdx = 0;
-export const getNextVideo = () => {
-  videoIdx = (videoIdx + 1) % videosMetadata.length;
-  return videosMetadata[videoIdx];
-};
+export const reallyGlobalShittyState = {
+  videoIdx: 0
+}
 
 export const config = {
-  beatChoiceTimeMs: 8000, // how long you have to dial a sound
-  numVideosPerSession: 5
+  beatChoiceTimeMs: 5000, // how long you have to dial a sound
+  numVideosPerSession: 3
 };

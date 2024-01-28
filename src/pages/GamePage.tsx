@@ -1,7 +1,7 @@
 import { CodeInput } from "../components/CodeInput";
 import { VideoPlayer } from "../components/VideoPlayer";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { PlayerEvent } from "../types";
+import { GameMode, PlayerEvent } from "../types";
 import YouTubePlayer from "youtube-player";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 
@@ -11,8 +11,13 @@ export function GamePage() {
   const [inputHistory, setInputHistory] = useState<PlayerEvent[]>([]);
   const [player, setPlayer] = useState<YouTubePlayerType>();
 
-  const [gameMode, setGameMode] = useState<"still" | "playback">("still");
-
+  const [gameMode, setGameMode] = useState<GameMode>("stills");
+  const goToNextScene = useCallback(() => {
+    setGameMode((prev) => {
+      if (prev === "stills") return "playback";
+      return prev;
+    });
+  }, []);
   // Initialize YouTube Player
   useEffect(() => {
     if (!videoRef.current) return;
@@ -41,7 +46,7 @@ export function GamePage() {
         player={player}
         videoRef={videoRef}
         mode={gameMode}
-        goToNext={() => setGameMode("playback")}
+        goToNextScene={goToNextScene}
       />
       <CodeInput onSoundPlayed={onSoundPlayed} videoPlayer={player} />
     </div>
