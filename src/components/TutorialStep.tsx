@@ -20,6 +20,7 @@ const tutorialPageText = [
   {
     title: "Selecting Audience Sounds",
     text: `Using our patented Dial-A-Sound system, enter the code corresponding to the most appropriate sound effect for the images. Each Dial-A-Sound code uses all four buttons exactly once. Be sure you make a selection before the timer runs out!`,
+    text2: `(For a nominal fee, a comprehensive code listing may be obtained separately)`,
     imgSrc: tutorial3,
   },
   {
@@ -63,7 +64,14 @@ export function TutorialStep({ goToNextScene }: Props) {
         <div className="flex items-center gap-8 h-72">
           <div className="text-4xl font-handwritten-sm text-left">
             {currentStep.text}
+            {currentStep.text2 && (
+              <>
+                <br />
+                <span className="text-2xl">{currentStep.text2}</span>
+              </>
+            )}
           </div>
+
           <img src={currentStep.imgSrc} className="h-64 w-auto" />
         </div>
       </section>
