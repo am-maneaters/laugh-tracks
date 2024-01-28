@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/fredericka-the-great": "^5.0.18",
     "@fontsource/permanent-marker": "^5.0.8",
     "@fontsource/single-day": "^5.0.17",
     "clsx": "^2.1.0",
