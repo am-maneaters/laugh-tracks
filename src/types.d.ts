@@ -1,5 +1,9 @@
-
-export type GameMode = "menu" | "tutorial" | "stills" | "prep_playback" | "playback";
+export type GameMode =
+  | "menu"
+  | "tutorial"
+  | "stills"
+  | "prep_playback"
+  | "playback";
 
 export interface AudioManifestItem {
   id: number;
@@ -24,4 +28,10 @@ export interface VideoMetadata {
   endTime: number;
   beatTime: number[];
   videoId: string;
+}
+
+export interface PlayerEvent {
+  type: "soundplayed" | "soundstopped";
+  soundPlayedId: number;
+  elapsedMs: number;
 }
