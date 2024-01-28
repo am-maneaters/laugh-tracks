@@ -6,7 +6,9 @@ export default {
     extend: {
       fontFamily: {
         segment: ["'7segment'", "sans-serif"],
-        handwritten: ["'Permanent Marker'", "sans-serif"]
+        handwritten: ["'Permanent Marker'", "sans-serif"],
+        "handwritten-sm": ["'Single Day'", "sans-serif"],
+        chalk: ["'Fredericka the Great'", "sans-serif"],
       },
       boxShadow: {
         // medium softshadow
