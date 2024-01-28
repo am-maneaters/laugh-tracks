@@ -3,7 +3,6 @@ import { useState } from "react";
 import AudioManager from "../audioManager";
 import { fileManifest } from "../constants";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
-import { AudioManifestItem } from "../types";
 
 import blueButtonLit from "../assets/images/buttons/button_blue_lit.png";
 import blueButtonUnlit from "../assets/images/buttons/button_blue_unlit.png";
@@ -20,7 +19,7 @@ import label4 from "../assets/images/labels/label_4.png";
 import { CodeInputButton } from "./CodeInputButton";
 import postitGreen from "../assets/images/postits/postit_green.png";
 import postitOrange from "../assets/images/postits/postit_orange.png";
-import postitYellow from "../assets/images/postits/postit_yellow.png";
+// import postitYellow from "../assets/images/postits/postit_yellow.png";
 
 function validateCode(code: string) {
   return fileManifest.find((codeMatch) => codeMatch.code === code);
@@ -53,15 +52,13 @@ function PostIt({
 }
 
 export function CodeInput({
-  videoPlayer,
-  onSoundPlayed,
+  onSoundChosen,
 }: {
   videoPlayer?: YouTubePlayerType;
-  onSoundPlayed: (id: number) => void;
+  onSoundChosen: (id: number) => void;
 }) {
   const [code, setCode] = useState<string>("");
   const [animateOut, setAnimateOut] = useState<"fail" | "success">();
-  const [, setInputHistory] = useState<AudioManifestItem[]>([]);
 
   const handleCodeInput = (label: string) => {
     if (code.split("").includes(label)) {
@@ -81,7 +78,7 @@ export function CodeInput({
       const codeMatch = validateCode(newCode);
       if (codeMatch) {
         AudioManager.playSound(codeMatch.id);
-        onSoundPlayed(codeMatch.id);
+        onSoundChosen(codeMatch.id);
       }
       setAnimateOut(codeMatch ? "success" : "fail");
       setTimeout(() => {
