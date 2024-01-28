@@ -9,10 +9,10 @@ export function MainMenu({ onGameStart }: MainMenuProps) {
   return (
     <div className="flex flex-col items-center gap-4">
       <img src="src/assets/images/logos/laff_tracker_logo.png"></img>
-      <div className="relative">
+      <div className="relative overflow-hidden">
         <img src={tvFrame} className="h-96" />
         <video
-          className="absolute top-12 left-8 w-auto h-3/4 -z-10"
+          className="absolute top-12 left-4 w-auto h-3/4 -z-10"
           src={mainMenuClip}
           loop
           autoPlay
