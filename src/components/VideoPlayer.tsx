@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import YouTubePlayer from "youtube-player";
+import { useEffect, useState } from "react";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
+import { videosMetadata } from "../constants";
 
 enum VideoState {
   Unstarted = -1,
@@ -11,24 +11,30 @@ enum VideoState {
   Cued = 5,
 }
 
-export function VideoPlayer() {
-  const videoRef = useRef<HTMLIFrameElement>(null);
-
+export function VideoPlayer({
+  player,
+  videoRef,
+}: {
+  player: YouTubePlayerType | undefined;
+  videoRef: React.MutableRefObject<HTMLDivElement | null>;
+}) {
   const [videoState, setVideoState] = useState<
     "playing" | "paused" | "stopped"
   >("stopped");
 
-  const [player, setPlayer] = useState<YouTubePlayerType>();
+  const [currentVideo, setCurrentVideo] = useState(videosMetadata.pop());
 
+  // Load the video when the player is ready or the current video changes
   useEffect(() => {
-    const player = YouTubePlayer(videoRef.current!);
+    if (!player || !currentVideo) return;
+    player.loadVideoById(currentVideo.videoId, currentVideo.startTime);
+  }, [player, currentVideo]);
 
-    setPlayer(player);
+  // Watch for Video state changes
+  useEffect(() => {
+    if (!player) return;
 
-    // 'loadVideoById' is queued until the player is ready to receive API calls.
-    player.loadVideoById("WcYG-5b7448");
-
-    player.on("stateChange", (e) => {
+    const handler = player.on("stateChange", (e) => {
       const state = e.data as VideoState;
 
       switch (state) {
@@ -45,13 +51,37 @@ export function VideoPlayer() {
     });
 
     return () => {
-      player.destroy();
+      // @ts-expect-error - types are wrong
+      player.off(handler);
     };
-  }, []);
+  }, [player]);
+
+  // Watch for video time changes using setInterval
+  useEffect(() => {
+    if (!player || !currentVideo) return;
+
+    const interval = setInterval(
+      () =>
+        player.getCurrentTime().then((time) => {
+          if (time > currentVideo.endTime) {
+            setCurrentVideo(videosMetadata.pop());
+          }
+        }),
+      200
+    );
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [player, currentVideo]);
 
   return (
     <div className="flex flex-col gap-4 items-center">
-      <div ref={videoRef} className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none" />
+      <div
+        ref={videoRef}
+        // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
+        className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip"
+      />
 
       {/* pause/play button */}
       <button

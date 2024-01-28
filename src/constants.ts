@@ -1,4 +1,4 @@
-import { AudioManifestItem, ScoreReference } from "./types";
+import { AudioManifestItem, ScoreReference, VideoMetadata } from "./types";
 
 function getAudioUrl(filename: string) {
     return new URL(`./assets/${filename}`, import.meta.url).href;
@@ -132,3 +132,104 @@ export const scoreReference_TEST: ScoreReference = {
   ],
 };
 
+
+export const videosMetadata: VideoMetadata[] = [
+  {
+    label: "Kevin introduction",
+    startTime: 0,
+    endTime: 35,
+    beatTime: [15.7, 23.85],
+    videoId: "CziLDGyo8W8",
+  },
+  {
+    label: "Kevin introduction",
+    startTime: 0,
+    endTime: 10,
+    beatTime: [4, 6],
+    videoId: "aYHzV2Y9UgY",
+  },
+  {
+    label: "Cocomelon Funny Face",
+    videoId: "Mt_CIBlEGos",
+    startTime: 145,
+    beatTime: [157],
+    endTime: 162,
+  },
+  {
+    label: "Kids Dancing",
+    videoId: "g0Z0WaTl9Sw",
+    startTime: 8,
+    beatTime: [11, 20, 25, 30],
+    endTime: 35,
+  },
+  {
+    label: "Death",
+    videoId: "f4yXBIigZbg",
+    startTime: 10,
+    endTime: 31,
+    beatTime: [18, 25],
+  },
+  {
+    label: "A Serious Man",
+    videoId: "6HJqPZ-KmZs",
+    startTime: 26,
+    endTime: 41,
+    beatTime: [38],
+  },
+  {
+    label: "Kanye on Joe Rogan",
+    videoId: "QXwdHyYWM_I",
+    startTime: 168,
+    endTime: 192,
+    beatTime: [180, 187],
+  },
+  {
+    label: "Doja Cat Hot Ones",
+    videoId: "ZkNMZlkrzaU",
+    startTime: 0,
+    endTime: 9,
+    beatTime: [5],
+  },
+  {
+    label: "Home Again",
+    videoId: "4_X1rhOq6BU",
+    startTime: 19,
+    endTime: 32,
+    beatTime: [25],
+  },
+  {
+    label: "Hands Up",
+    videoId: "9yHYAG01aaY",
+    startTime: 24,
+    endTime: 38,
+    beatTime: [32],
+  },
+  {
+    label: "Everybody's Fancy",
+    videoId: "mM1ODJunrN8",
+    startTime: 25,
+    endTime: 41,
+    beatTime: [38],
+  },
+  {
+    label: "Gandalf",
+    videoId: "gtEKXaUkQRI",
+    startTime: 60 + 16,
+    endTime: 60 + 39,
+    beatTime: [60 + 22, 60 + 33],
+  },
+  {
+    label: "DJ Khaled Guitar",
+    startTime: 2,
+    endTime: 43,
+    beatTime: [11.5, 28, 37],
+    videoId: "3QvgFbjAC7U",
+  },
+  {
+    label: "Snake Opens Door",
+    startTime: 0,
+    endTime: 12,
+    beatTime: [3.1],
+    videoId: "Bxc_55ur-J4",
+  },
+];

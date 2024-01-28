@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import AudioManager from "../audioManager";
 import { fileManifest } from "../constants";
-import { AudioManifestItem } from "../types";
+import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 
 function CodeInputButton({
   label,
@@ -28,10 +28,9 @@ function validateCode(code: string) {
   return fileManifest.find((codeMatch) => codeMatch.code === code);
 }
 
-export function CodeInput() {
+export function CodeInput({ videoPlayer, onSoundPlayed }: { videoPlayer?: YouTubePlayerType; onSoundPlayed: (id: number) => void }) {
   const [code, setCode] = useState<string>("");
   const [animateOut, setAnimateOut] = useState<"fail" | "success">();
-  const [inputHistory, setInputHistory] = useState<AudioManifestItem[]>([]);
 
   const handleCodeInput = (label: string) => {
     const newCode = code + label;
@@ -42,7 +41,7 @@ export function CodeInput() {
       const codeMatch = validateCode(newCode);
       if (codeMatch) {
         AudioManager.playSound(codeMatch.id);
-        setInputHistory((prev) => [...prev, codeMatch]);
+        onSoundPlayed(codeMatch.id);
       }
       setAnimateOut(codeMatch ? "success" : "fail");
       setTimeout(() => {

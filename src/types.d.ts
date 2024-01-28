@@ -27,3 +27,11 @@ export interface PlayerEvent_OTHER {
 }
 
 export type PlayerEvent = PlayerEventSoundPlayed | PlayerEvent_OTHER;
+
+export interface VideoMetadata {
+  label: string;
+  startTime: number;
+  endTime: number;
+  beatTime: number[];
+  videoId: string;
+}
