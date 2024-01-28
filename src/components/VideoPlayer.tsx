@@ -4,6 +4,7 @@ import tvBackground from "../assets/images/background/tv_frame.png";
 import { config, videosMetadata, reallyGlobalShittyState } from "../constants";
 import { GameMode } from "../types";
 import audioManager from "../audioManager";
+import { AnimatedTimer } from "./AnimatedTimer";
 
 enum VideoState {
   Unstarted = -1,
@@ -39,7 +40,7 @@ export function VideoPlayer({
   });
   const timeLastBeatBegan = useRef(Date.now());
 
-  const [countdownText, setCountdownText] = useState("");
+  const [countdownText, setCountdownText] = useState<number>();
 
   // Load the video when the player is ready or the current video changes
   useEffect(() => {
@@ -138,9 +139,7 @@ export function VideoPlayer({
       if (mode === "stills") {
         const now = Date.now();
         const elapsed = now - timeLastBeatBegan.current;
-        setCountdownText(
-          `${Math.ceil((config.beatChoiceTimeMs - elapsed) / 1000)}`
-        );
+        setCountdownText(Math.ceil((config.beatChoiceTimeMs - elapsed) / 1000));
         if (elapsed <= config.beatChoiceTimeMs) return;
 
         timeLastBeatBegan.current = now;
@@ -179,7 +178,7 @@ export function VideoPlayer({
   }, [player, nowPlaying, mode, goToNextScene, onTimeRanOut]);
 
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-row gap-4 items-center">
       {/* Container for video and TV frame with cutout to put tv inside of */}
       <div className="relative overflow-hidden">
         <div
@@ -197,7 +196,8 @@ export function VideoPlayer({
           />
         </div>
       </div>
-      <div className="text-3xl">TIME LEFT: {countdownText}</div>
+
+      <AnimatedTimer duration={9} timeLeft={countdownText ?? 0} />
     </div>
   );
 }
