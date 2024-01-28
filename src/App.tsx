@@ -10,7 +10,7 @@ function App() {
   if (page === "title") {
     return <MainMenu onGameStart={() => setPage("game")} />;
   }
-  return <GamePage />;
+  return <GamePage onGameEnd={() => setPage("title")}/>;
 }
 
 export default App;
