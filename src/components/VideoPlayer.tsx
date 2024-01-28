@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { YouTubePlayer as YouTubePlayerType } from "youtube-player/dist/types";
 import { config, getNextVideo, videosMetadata } from "../constants";
+import tvBackground from "../assets/images/background/tv_frame.png";
 
 enum VideoState {
   Unstarted = -1,
@@ -122,11 +123,23 @@ export function VideoPlayer({
 
   return (
     <div className="flex flex-col gap-4 items-center">
-      <div
-        ref={videoRef}
-        // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
-        className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip"
-      />
+      {/* Container for video and TV frame with cutout to put tv inside of */}
+      <div className="relative overflow-hidden">
+        <div
+          ref={videoRef}
+          // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
+          className="h-[320px] w-auto aspect-video absolute -z-10 top-[65px] left-[0px] bg-blue-500"
+        />
+
+        <div className="flex flex-col">
+          {/* An image of a tv that the video ref needs to be absolutely positioned inside of */}
+          <img
+            src={tvBackground}
+            alt="tv"
+            className="w-auto h-[460px] rounded-xl opacity-100 z-10"
+          />
+        </div>
+      </div>
 
       {/* pause/play button */}
       <button
@@ -137,7 +150,7 @@ export function VideoPlayer({
             player?.playVideo();
           }
         }}
-        className="p-4 border-2 rounded-lg shadow-hard"
+        className="p-4 border-2 rounded-lg "
       >
         {videoState === "playing" ? (
           <svg
