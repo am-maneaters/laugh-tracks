@@ -29,6 +29,10 @@ And remember - "Leave No Awkward Silence Unfilled!"
 
 -LAFF TRACKER, INC.
 
+<p align="center">
+<img src="src/assets/images/screenshots/game_screenshot.png">
+</p>
+
 # Build and Run
 
 Install nodejs and npm for your operating system, then run the following commands.
