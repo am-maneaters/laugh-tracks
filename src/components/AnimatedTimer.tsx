@@ -22,12 +22,11 @@ export function AnimatedTimer({
   function getStrokeColor() {
     if (timeLeft <= 3) return "stroke-red-500";
     if (timeLeft <= 5) return "stroke-yellow-500";
-    return "stroke-blue-500";
+    return "stroke-black";
   }
 
   return (
-    <div>
-      <h2 className="font-handwritten text-black text-3xl">Time Left</h2>
+    <div className="flex gap-4 m-4 p-2 font-bold rounded-lg bg-lime-100 border-4 border-black">
       <div className={className}>
         <svg className="w-[200px] h-[200px]">
           <text

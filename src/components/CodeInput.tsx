@@ -44,8 +44,8 @@ function PostIt({
         className
       )}
     >
-      <img src={img} alt="post-it" className="w-64" />
-      <div className="absolute text-black text-xl h-full flex justify-center flex-col">
+      <img src={img} alt="post-it" className="w-56" />
+      <div className="absolute text-black text-lg h-full flex justify-center flex-col">
         {text}
       </div>
     </div>
@@ -114,8 +114,8 @@ export function CodeInput({
   };
 
   return (
-    <div className="flex gap-4 items-center">
-      <div className="flex flex-col justify-evenly gap-8">
+    <div className="flex gap-4 items-center border-2 border-black rounded-lg bg-stone-700 shadow-2xl bg-opacity-25 backdrop-blur">
+      <div className="flex flex-col justify-evenly gap-8 translate-y-10">
         <PostIt
           className="-rotate-6 -translate-y-8"
           img={postitGreen}
@@ -136,7 +136,7 @@ export function CodeInput({
         />
       </div>
 
-      <div className="border-4 border-black rounded-lg bg-stone-500 shadow-2xl">
+      <div className="border-2 border-stone-700 rounded-lg bg-stone-500 shadow-2xl">
         <div
           className={clsx(
             "flex gap-4 m-4 p-2 font-bold rounded-lg bg-lime-100 border-4 border-black",
