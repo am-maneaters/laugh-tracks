@@ -251,6 +251,13 @@ export const videosMetadata: VideoMetadata[] = [
     beatTime: [3.1],
     videoId: "Bxc_55ur-J4",
   },
+  {
+    label: "Teen Titans",
+    startTime: 38,
+    endTime: 54,
+    beatTime: [44, 54],
+    videoId: "Rc-Jh3Oe0Gc",
+  },
 ];
 
 // // shuffle videos on load
