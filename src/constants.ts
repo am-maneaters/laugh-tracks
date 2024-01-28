@@ -251,6 +251,13 @@ export const videosMetadata: VideoMetadata[] = [
     videoId: "Bxc_55ur-J4",
   },
   {
+    label: "Teen Titans",
+    startTime: 38,
+    endTime: 54,
+    beatTime: [44, 54],
+    videoId: "Rc-Jh3Oe0Gc",
+  },
+  {
     label: "Gas Station",
     videoId: "Z20AaMCVExE",
     startTime: 118,
