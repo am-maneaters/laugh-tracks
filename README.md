@@ -1,5 +1,5 @@
 <p align="center">
-# <img src="src/assets/images/logos/laff_tracker_logo.png">
+<img src="src/assets/images/logos/laff_tracker_logo.png">
 </p>
 
 # How to Play
