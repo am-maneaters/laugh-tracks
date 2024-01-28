@@ -29,11 +29,24 @@ function validateCode(code: string) {
  * Show an image of a post-it note and overlay some text on it
  * @returns
  */
-function PostIt({ img, text }: { img: string; text: React.ReactNode }) {
+function PostIt({
+  img,
+  text,
+  className,
+}: {
+  img: string;
+  text: React.ReactNode;
+  className: string;
+}) {
   return (
-    <div className="flex flex-col items-center font-handwritten relative">
+    <div
+      className={clsx(
+        "flex flex-col items-center font-handwritten font-bold relative",
+        className
+      )}
+    >
       <img src={img} alt="post-it" className="w-64" />
-      <div className="absolute text-black top-8">{text}</div>
+      <div className="absolute text-black text-xl h-full flex justify-center flex-col">{text}</div>
     </div>
   );
 }
@@ -77,15 +90,28 @@ export function CodeInput({
   };
 
   return (
-    <div className="flex items-center">
-      <PostIt
-        img={postitGreen}
-        text={fileManifest.slice(0, 7).map(({ code, title }) => (
-          <div key={code}>
-            {title}: {code}
-          </div>
-        ))}
-      />
+    <div className="flex gap-4 items-center">
+      <div className="flex flex-col justify-evenly gap-8">
+        <PostIt
+          className="-rotate-6 -translate-y-8"
+          img={postitGreen}
+          text={fileManifest.slice(0, 4).map(({ code, title }) => (
+            <div key={code}>
+              {title}: {code}
+            </div>
+          ))}
+        />
+        <PostIt
+          className="rotate-12 -translate-y-8"
+          img={postitYellow}
+          text={fileManifest.slice(4,8).map(({ code, title }) => (
+            <div key={code}>
+              {title}: {code}
+            </div>
+          ))}
+        />
+      </div>
+
       <div className="border-4 border-black rounded-lg bg-stone-500 shadow-2xl">
         <div
           className={clsx(
@@ -147,7 +173,8 @@ export function CodeInput({
 
       <PostIt
         img={postitOrange}
-        text={fileManifest.slice(7).map(({ code, title }) => (
+        className="-rotate-12"
+        text={fileManifest.slice(8).map(({ code, title }) => (
           <div key={code}>
             {title}: {code}
           </div>

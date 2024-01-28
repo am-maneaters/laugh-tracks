@@ -85,7 +85,7 @@ export const fileManifest: AudioManifestItem[] = [
   {
     id: 11,
     filename: getAudioUrl("audio/clearing_throat.mp3"),
-    title: "Man Clearing Throat",
+    title: "Coughing",
     code: "3241",
     gain: 0.7,
   },
