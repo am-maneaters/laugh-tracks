@@ -18,9 +18,25 @@ import label2 from "../assets/images/labels/label_2.png";
 import label3 from "../assets/images/labels/label_3.png";
 import label4 from "../assets/images/labels/label_4.png";
 import { CodeInputButton } from "./CodeInputButton";
+import postitGreen from "../assets/images/postits/postit_green.png";
+import postitOrange from "../assets/images/postits/postit_orange.png";
+import postitYellow from "../assets/images/postits/postit_yellow.png";
 
 function validateCode(code: string) {
   return fileManifest.find((codeMatch) => codeMatch.code === code);
+}
+
+/**
+ * Show an image of a post-it note and overlay some text on it
+ * @returns
+ */
+function PostIt({ img, text }: { img: string; text: React.ReactNode }) {
+  return (
+    <div className="flex flex-col items-center font-handwritten relative">
+      <img src={img} alt="post-it" className="w-64" />
+      <div className="absolute text-black top-8">{text}</div>
+    </div>
+  );
 }
 
 export function CodeInput({
@@ -35,6 +51,15 @@ export function CodeInput({
   const [, setInputHistory] = useState<AudioManifestItem[]>([]);
 
   const handleCodeInput = (label: string) => {
+    if (code.split("").includes(label)) {
+      // remove the label from the code
+      const newCode = code
+        .split("")
+        .filter((c) => c !== label)
+        .join("");
+      setCode(newCode);
+      return;
+    }
     const newCode = code + label;
 
     setCode(newCode);
@@ -55,7 +80,15 @@ export function CodeInput({
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex items-center">
+      <PostIt
+        img={postitGreen}
+        text={fileManifest.slice(0, 7).map(({ code, title }) => (
+          <div key={code}>
+            {title}: {code}
+          </div>
+        ))}
+      />
       <div className="border-4 border-black rounded-lg bg-stone-500 shadow-2xl">
         <div
           className={clsx(
@@ -115,16 +148,14 @@ export function CodeInput({
         </div>
       </div>
 
-      {/* Display the codes for the player */}
-      <div className="grid gap-4 grid-cols-3 p-4">
-        {fileManifest.map(({ code, title }) => (
-          <div className="flex flex-col items-center h-full" key={code}>
-            <div className="border border-black rounded p-2 text-sm font-bold">
-              {title}: {code}
-            </div>
+      <PostIt
+        img={postitOrange}
+        text={fileManifest.slice(7).map(({ code, title }) => (
+          <div key={code}>
+            {title}: {code}
           </div>
         ))}
-      </div>
+      />
     </div>
   );
 }

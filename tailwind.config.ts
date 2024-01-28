@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         segment: ["'7segment'", "sans-serif"],
+        handwritten: ["'Single Day'", "sans-serif"]
       },
       boxShadow: {
         // medium softshadow
