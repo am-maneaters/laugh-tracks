@@ -25,7 +25,13 @@ export function GamePage() {
   // Initialize YouTube Player
   useEffect(() => {
     if (!videoRef.current) return;
-    const player = YouTubePlayer(videoRef.current);
+    const player = YouTubePlayer(videoRef.current, {
+      playerVars: { // Prevents extra stuff from blocking the video frame
+        rel: 0,
+        controls: 0,
+        iv_load_policy: 3,
+      },
+    });
     setPlayer(player);
   }, []);
 
