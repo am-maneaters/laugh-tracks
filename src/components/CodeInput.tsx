@@ -45,7 +45,11 @@ function PostIt({
       )}
     >
       <img src={img} alt="post-it" className="w-56 z-10" />
-      <img src={img} alt="post-it" className="absolute w-56 translate-x-2 scale-95 translate-y-4 brightness-0 -rotate-2" />
+      <img
+        src={img}
+        alt="post-it"
+        className="absolute w-56 translate-x-2 scale-95 translate-y-4 brightness-0 -rotate-2"
+      />
       <div className="absolute text-black text-lg h-full flex justify-center flex-col z-30">
         {text}
       </div>
@@ -84,30 +88,35 @@ export function CodeInput({
     setCodeStatus(undefined);
   }, [tCount]);
 
-  const handleCodeInput = useCallback((label: string) => {
-    const newCode =
-      code.length === 4
-        ? label
-        : [...code.split("").filter((c) => c !== label), label]
-            .slice(-4)
-            .join("");
-    setCode(newCode);
-
-    if (newCode.length === 4) {
-      const codeMatch = validateCode(newCode);
-      if (codeMatch) {
-        AudioManager.playSound(codeMatch.id);
-        onSoundChosen(codeMatch.id);
+  const handleCodeInput = useCallback(
+    (label: string) => {
+      let newCode =
+        code.length >= 4 ? label : [...code.split(""), label].join("");
+      for (let i = 1; i < 5; i++) {
+        if (newCode.split("").filter((x) => x === `${i}`).length > 1) {
+          newCode = label;
+          break;
+        }
       }
-      setCodeStatus(codeMatch ? "success" : "fail");
-      if (!codeMatch)
-        setTimeout(() => {
-          setCodeStatus(undefined);
-          setCode("");
-        }, 1000);
-      return;
-    }
-  }, [code, onSoundChosen]);
+      setCode(newCode);
+
+      if (newCode.length === 4) {
+        const codeMatch = validateCode(newCode);
+        if (codeMatch) {
+          AudioManager.playSound(codeMatch.id);
+          onSoundChosen(codeMatch.id);
+        }
+        setCodeStatus(codeMatch ? "success" : "fail");
+        if (!codeMatch)
+          setTimeout(() => {
+            setCodeStatus(undefined);
+            setCode("");
+          }, 1000);
+        return;
+      }
+    },
+    [code, onSoundChosen]
+  );
 
   return (
     <div className="flex gap-4 items-center border-2 border-black rounded-lg bg-stone-700 shadow-2xl bg-opacity-25 backdrop-blur">
