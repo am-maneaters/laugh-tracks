@@ -44,8 +44,9 @@ function PostIt({
         className
       )}
     >
-      <img src={img} alt="post-it" className="w-56" />
-      <div className="absolute text-black text-lg h-full flex justify-center flex-col">
+      <img src={img} alt="post-it" className="w-56 z-10" />
+      <img src={img} alt="post-it" className="absolute w-56 translate-x-2 scale-95 translate-y-4 brightness-0 -rotate-2" />
+      <div className="absolute text-black text-lg h-full flex justify-center flex-col z-30">
         {text}
       </div>
     </div>
