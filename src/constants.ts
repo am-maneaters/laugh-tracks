@@ -240,7 +240,7 @@ export const videosMetadata: VideoMetadata[] = [
     label: "Snake Opens Door",
     startTime: 0,
     endTime: 12,
-    beatTime: [4],
+    beatTime: [3.75],
     videoId: "Bxc_55ur-J4",
   },
   // {
@@ -255,7 +255,7 @@ export const videosMetadata: VideoMetadata[] = [
     videoId: "Z20AaMCVExE",
     startTime: 118,
     endTime: 138,
-    beatTime: [126.5, 134.3],
+    beatTime: [128.8, 134.3],
   },
   {
     label: "Zoro and Luffy",
