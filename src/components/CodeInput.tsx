@@ -44,19 +44,12 @@ function PostIt({
         className
       )}
     >
-<<<<<<< HEAD
-      <img src={img} alt="post-it" className="w-56 z-10" />
-=======
       <img src={img} alt="post-it" className="w-56 z-10" draggable={false} />
->>>>>>> 017f4a98f2f0bc79598305598aab94efb21d028b
       <img
         src={img}
         alt="post-it"
         className="absolute w-56 translate-x-2 scale-95 translate-y-4 brightness-0 -rotate-2"
-<<<<<<< HEAD
-=======
         draggable={false}
->>>>>>> 017f4a98f2f0bc79598305598aab94efb21d028b
       />
       <div className="absolute text-black text-lg h-full flex justify-center flex-col z-30">
         {text}
