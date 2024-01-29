@@ -30,7 +30,7 @@ export function VideoPlayer({
     const STILL_GAP = 0.75;
     const getStartTime = () => {
       const beatTime = nowPlaying.data.beatTime[nowPlaying.beatIdx];
-      const elapsedSec = Math.floor(
+      const elapsedSec = Math.round(
         (Date.now() - timeLastBeatBegan.current) / (1000 * STILLS_SECS)
       );
       const stillIdx = (config.beatChoiceTimeMs - elapsedSec) % N_STILLS;

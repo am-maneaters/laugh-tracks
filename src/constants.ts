@@ -43,7 +43,7 @@ export const fileManifest: AudioManifestItem[] = [
   {
     id: 5,
     filename: getAudioUrl("audio/ooaah.mp3"),
-    title: "Groan",
+    title: "Ohhhhh",
     code: "3214",
     gain: 0.75,
   },
@@ -73,7 +73,7 @@ export const fileManifest: AudioManifestItem[] = [
     filename: getAudioUrl("audio/polite_applause.mp3"),
     title: "Golf Clap",
     code: "2143",
-    gain: 0.75,
+    gain: 1,
   },
   {
     id: 10,
@@ -87,7 +87,7 @@ export const fileManifest: AudioManifestItem[] = [
     filename: getAudioUrl("audio/clearing_throat.mp3"),
     title: "Coughing",
     code: "3241",
-    gain: 0.85,
+    gain: 1,
   },
   {
     id: 12,
