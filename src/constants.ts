@@ -264,6 +264,34 @@ export const videosMetadata: VideoMetadata[] = [
     beatTime: [2.85, 4.1],
     videoId: "AIMJ1fyTuf0",
   },
+  {
+    label: "Bah Bah",
+    videoId: "rfytfLpTTe4",
+    startTime: 3,
+    endTime: 14,
+    beatTime: [12],
+  },
+  {
+    label: "Scooby doo scared",
+    videoId: "xby81m1GtH8",
+    startTime: 25,
+    endTime: 36,
+    beatTime: [33]
+  },
+  {
+    label: "Hannibal",
+    startTime: 60 + 20,
+    endTime: 60 + 41,
+    beatTime: [60 + 29, 60 + 37],
+    videoId: "syz7eFdcouU",
+  },
+  {
+    label: "Hannibal",
+    startTime: 27,
+    endTime: 41,
+    beatTime: [37],
+    videoId: "bHoqL7DFevc",
+  },
 ];
 
 export const shuffleVideos = () => {
