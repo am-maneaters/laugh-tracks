@@ -15,9 +15,9 @@ export function MainMenu({ onGameStart }: MainMenuProps) {
   }, []);
   return (
     <div className="flex flex-col items-center gap-4">
-      <img src={logo}></img>
+      <img src={logo} draggable={false} />
       <div className="relative overflow-hidden">
-        <img src={tvFrame} className="h-96" />
+        <img src={tvFrame} className="h-96" draggable={false} />
         <video
           className="absolute top-12 left-4 w-auto h-3/4 -z-10"
           src={mainMenuClip}
