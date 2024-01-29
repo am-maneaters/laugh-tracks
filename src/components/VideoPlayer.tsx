@@ -113,7 +113,7 @@ export function VideoPlayer({
         <div
           ref={videoRef}
           // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
-          className="h-[320px] w-auto aspect-video absolute -z-10 top-[65px] left-[10px] bg-blue-500"
+          className="h-[320px] w-auto aspect-video absolute -z-10 top-[65px] left-[10px] staticcy"
         />
 
         <div className="flex flex-col">
