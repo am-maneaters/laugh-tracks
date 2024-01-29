@@ -99,6 +99,7 @@ export function CodeInput({
           break;
         }
       }
+      if (code.length > newCode.length) setCodeStatus(undefined);
       setCode(newCode);
 
       if (newCode.length === 4) {
