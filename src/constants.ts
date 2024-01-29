@@ -281,6 +281,6 @@ export const reallyGlobalShittyState = {
 };
 
 export const config = {
-  beatChoiceTimeMs: 12000, // how long you have to dial a sound
+  beatChoiceTimeMs: 15000, // how long you have to dial a sound
   numVideosPerSession: 4,
 };

@@ -4,23 +4,12 @@ import { config, videosMetadata, reallyGlobalShittyState } from "../constants";
 import { AnimatedTimer } from "./AnimatedTimer";
 import { useYoutubePlayer } from "../hooks/useYoutubePlayer";
 
-enum VideoState {
-  Unstarted = -1,
-  Ended = 0,
-  Playing = 1,
-  Paused = 2,
-  Buffering = 3,
-  Cued = 5,
-}
-
 export function VideoPlayer({
   onTimeRanOut,
   goToNextScene,
-  chosenSoundIds,
 }: {
   onTimeRanOut: () => void;
   goToNextScene: () => void;
-  chosenSoundIds: number[];
 }) {
   const { videoRef, player } = useYoutubePlayer();
   const [nowPlaying, setNowPlaying] = useState({
@@ -34,29 +23,33 @@ export function VideoPlayer({
   // Load the video when the player is ready or the current video changes
   useEffect(() => {
     if (!player || !nowPlaying) return;
-    player.loadVideoById(
-      nowPlaying.data.videoId,
-      nowPlaying.data.beatTime[nowPlaying.beatIdx]
-    );
-  }, [player, nowPlaying, chosenSoundIds]);
+    let intervalId = -1;
 
-  // Watch for Video state changes
-  useEffect(() => {
-    if (!player) return;
+    const N_STILLS = 4;
+    const STILLS_SECS = 1.25;
+    const STILL_GAP = 0.75;
+    const getStartTime = () => {
+      const beatTime = nowPlaying.data.beatTime[nowPlaying.beatIdx];
+      const elapsedSec = Math.floor(
+        (Date.now() - timeLastBeatBegan.current) / (1000 * STILLS_SECS)
+      );
+      const stillIdx = (config.beatChoiceTimeMs - elapsedSec) % N_STILLS;
 
-    const handler = player.on("stateChange", (e) => {
-      const state = e.data as VideoState;
+      return beatTime - STILL_GAP * stillIdx;
+    };
 
-      if (state === VideoState.Playing) {
-        player.pauseVideo();
-      }
+    player.loadVideoById(nowPlaying.data.videoId, getStartTime()).then(() => {
+      player.setPlaybackRate(0.001);
+      player.setVolume(0);
+      intervalId = setInterval(() => {
+        player.seekTo(getStartTime(), true);
+      }, 15);
     });
 
     return () => {
-      // @ts-expect-error - types are wrong
-      player.off(handler);
+      clearInterval(intervalId);
     };
-  }, [player]);
+  }, [player, nowPlaying, timeLastBeatBegan]);
 
   // "STILLS" mode - timer based
   useEffect(() => {
