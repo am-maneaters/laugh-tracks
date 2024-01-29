@@ -97,7 +97,6 @@ export function GamePage({ onGameEnd }: Props) {
       <VideoPlayer
         goToNextScene={goToNextScene}
         onTimeRanOut={finalizeChoice}
-        chosenSoundIds={chosenSoundIds}
       />
       <CodeInput onSoundChosen={setChosenSound} />
     </div>
