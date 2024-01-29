@@ -52,7 +52,7 @@ export function GamePage({ onGameEnd }: Props) {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="relative overflow-hidden">
-          <img src={tvFrame} className="h-96" />
+          <img src={tvFrame} className="h-96" draggable={false} />
           <div
             className="absolute top-12 left-4 w-3/4 h-3/4 -z-10 staticcy"
             style={{ objectFit: "cover" }}

@@ -88,6 +88,7 @@ export function VideoPlayback({
             src={tvBackground}
             alt="tv"
             className="w-auto h-[640px] rounded-xl opacity-100 z-10"
+            draggable={false}
           />
         </div>
       </div>

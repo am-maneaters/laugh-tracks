@@ -58,7 +58,7 @@ export function TutorialStep({ goToNextScene }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <img src={logo} className="h-32"></img>
+      <img src={logo} className="h-32" draggable={false} />
       <section className="flex flex-col items-start blueprint-background border-white rounded-xl border-4 chalk-border p-8">
         <h1 className="text-5xl font-chalk">{currentStep.title}</h1>
         <div className="flex items-center gap-8 min-h-80">
@@ -72,7 +72,11 @@ export function TutorialStep({ goToNextScene }: Props) {
             )}
           </div>
 
-          <img src={currentStep.imgSrc} className="h-64 w-auto" />
+          <img
+            src={currentStep.imgSrc}
+            className="h-64 w-auto"
+            draggable={false}
+          />
         </div>
       </section>
       <div className="flex">
