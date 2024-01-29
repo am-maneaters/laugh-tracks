@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AudioManager from "../audioManager";
 import { fileManifest, reallyGlobalShittyState } from "../constants";
 
@@ -83,18 +83,13 @@ export function CodeInput({
     setCodeStatus(undefined);
   }, [tCount]);
 
-  const handleCodeInput = (label: string) => {
-    if (code.split("").includes(label)) {
-      // remove the label from the code
-      const newCode = code
-        .split("")
-        .filter((c) => c !== label)
-        .join("");
-      setCode(newCode);
-      return;
-    }
-    const newCode = code + label;
-
+  const handleCodeInput = useCallback((label: string) => {
+    const newCode =
+      code.length === 4
+        ? label
+        : [...code.split("").filter((c) => c !== label), label]
+            .slice(-4)
+            .join("");
     setCode(newCode);
 
     if (newCode.length === 4) {
@@ -111,7 +106,7 @@ export function CodeInput({
         }, 1000);
       return;
     }
-  };
+  }, [code, onSoundChosen]);
 
   return (
     <div className="flex gap-4 items-center">
