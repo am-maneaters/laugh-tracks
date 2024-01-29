@@ -5,7 +5,7 @@ export function AnimatedTimer({
   duration,
   timeLeft,
   className,
-  radius = 60,
+  radius = 30,
 }: {
   duration: number;
   className?: string;
@@ -26,14 +26,14 @@ export function AnimatedTimer({
   }
 
   return (
-    <div className="flex gap-4 m-4 p-2 font-bold rounded-lg bg-lime-100 border-4 border-black">
+    <div className="flex gap-4 font-bold rounded-full bg-lime-100 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)]">
       <div className={className}>
-        <svg className="w-[200px] h-[200px]">
+        <svg className="w-[80px] h-[80px]">
           <text
-            x="95"
-            y="120"
+            x="40"
+            y="60"
             textAnchor="middle"
-            className="font-segment text-6xl"
+            className="font-segment text-5xl"
           >
             {timeLeft}
           </text>
@@ -43,7 +43,7 @@ export function AnimatedTimer({
             r={radius}
             className="origin-center fill-none stroke-black -rotate-90 opacity-30"
             style={{
-              strokeWidth: 10,
+              strokeWidth: 6,
               transformOrigin: "center center",
             }}
           />
@@ -53,7 +53,7 @@ export function AnimatedTimer({
               strokeOpacity: 1,
               strokeLinecap: "round",
               strokeDasharray: 1,
-              strokeWidth: 10,
+              strokeWidth: 6,
             }}
             cx="50%"
             cy="50%"
