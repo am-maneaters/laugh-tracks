@@ -107,6 +107,9 @@ export function VideoPlayer({
     <div className="flex flex-row gap-4 items-center">
       {/* Container for video and TV frame with cutout to put tv inside of */}
       <div className="relative overflow-hidden">
+        <div className="absolute z-20 right-6 top-24">
+          <AnimatedTimer duration={9} timeLeft={countdownText ?? 0} />
+        </div>
         <div
           ref={videoRef}
           // className="w-96 h-auto aspect-video rounded-xl shadow-hard-xl shadow-black overflow-clip pointer-events-none"
@@ -122,8 +125,6 @@ export function VideoPlayer({
           />
         </div>
       </div>
-
-      <AnimatedTimer duration={9} timeLeft={countdownText ?? 0} />
     </div>
   );
 }

@@ -93,7 +93,7 @@ export function GamePage({ onGameEnd }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 p-4 shadow-inner bg-opacity-15 rounded-3xl">
       <VideoPlayer
         goToNextScene={goToNextScene}
         onTimeRanOut={finalizeChoice}
