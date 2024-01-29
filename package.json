@@ -14,6 +14,7 @@
     "@fontsource/fredericka-the-great": "^5.0.18",
     "@fontsource/permanent-marker": "^5.0.8",
     "@fontsource/single-day": "^5.0.17",
+    "@vercel/analytics": "^1.1.2",
     "clsx": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

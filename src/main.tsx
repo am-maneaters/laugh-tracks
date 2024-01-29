@@ -5,6 +5,9 @@ import "@fontsource/permanent-marker";
 import "@fontsource/single-day";
 import "@fontsource/fredericka-the-great";
 import audioManager from "./audioManager";
+import { inject } from "@vercel/analytics";
+
+inject();
 
 const renderApp = () => {
   ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
