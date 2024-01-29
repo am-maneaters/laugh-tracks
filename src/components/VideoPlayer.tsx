@@ -108,7 +108,10 @@ export function VideoPlayer({
       {/* Container for video and TV frame with cutout to put tv inside of */}
       <div className="relative overflow-hidden">
         <div className="absolute z-20 right-6 top-24">
-          <AnimatedTimer duration={9} timeLeft={countdownText ?? 0} />
+          <AnimatedTimer
+            duration={config.beatChoiceTimeMs / 1000}
+            timeLeft={countdownText ?? 0}
+          />
         </div>
         <div
           ref={videoRef}

@@ -30,10 +30,11 @@ export function AnimatedTimer({
       <div className={className}>
         <svg className="w-[80px] h-[80px]">
           <text
-            x="40"
-            y="60"
+            // Different x position for single digit numbers
+            x={timeLeft < 10 ? "40" : "36"}
+            y="55"
             textAnchor="middle"
-            className="font-segment text-5xl"
+            className="font-segment text-4xl"
           >
             {timeLeft}
           </text>
